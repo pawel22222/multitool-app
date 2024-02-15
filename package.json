@@ -2,7 +2,7 @@
   "name": "calc-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://pawel22222.calc-app.io/",
+  "homepage": "https://pawel22222.github.io/calc-app",
   "type": "module",
   "scripts": {
     "deploy": "gh-pages -d build",
