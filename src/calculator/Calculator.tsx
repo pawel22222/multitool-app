@@ -25,35 +25,37 @@ const INITIAL_N: Digits = '0';
 const INITIAL_STATE: Readonly<CalcState> = { n1: INITIAL_N, n2: INITIAL_N, sign: null, result: '' };
 export const DIVISION_BY_ZERO_ERROR = 'Nie można dzielić przez zero';
 
-export function formatNumber(n: string | number): string {
+export function formatNumberToDisplay(n: string): string {
   if (String(n).includes(DECIMAL_POINT)) {
     return String(n);
   }
   return String(Number(n));
 }
 
-export function parseNumber(n: number | string): string {
-  return String(Number(Number(n).toPrecision(PRECISION)));
+export function parseNumber(n: number | string, precision: number = 12): string {
+  return String(Number(Number(n).toPrecision(precision)));
 }
 
 export function calculateTwoNumbers(s1: string, s2: string, sign: Signs | null) {
   if (!sign) return s1;
+
+  const parseNumberWithPrecision = (n: number | string) => parseNumber(n, PRECISION);
 
   const n1 = Number(s1);
   const n2 = Number(s2);
 
   switch (sign) {
     case '+':
-      return parseNumber(n1 + n2);
+      return parseNumberWithPrecision(n1 + n2);
     case '-':
-      return parseNumber(n1 - n2);
+      return parseNumberWithPrecision(n1 - n2);
     case '*':
-      return parseNumber(n1 * n2);
+      return parseNumberWithPrecision(n1 * n2);
     case '/':
       if (n2 === 0) {
         return DIVISION_BY_ZERO_ERROR;
       }
-      return parseNumber(n1 / n2);
+      return parseNumberWithPrecision(n1 / n2);
     default:
       const never: never = sign;
       throw Error(never);
@@ -75,12 +77,12 @@ function calculatorReducer(
         if (payload.char === DECIMAL_POINT && n2.includes(DECIMAL_POINT)) {
           return state;
         }
-        return { ...state, n2: formatNumber(n2 + payload.char) };
+        return { ...state, n2: formatNumberToDisplay(n2 + payload.char) };
       }
       if (payload.char === DECIMAL_POINT && n1.includes(DECIMAL_POINT)) {
         return state;
       }
-      return { ...state, n1: formatNumber(n1 + payload.char) };
+      return { ...state, n1: formatNumberToDisplay(n1 + payload.char) };
     }
 
     case 'useSign': {
@@ -131,7 +133,7 @@ function calculatorReducer(
     }
 
     case 'backspace': {
-      return { ...state, n1: formatNumber(n1.slice(0, -1)) };
+      return { ...state, n1: formatNumberToDisplay(n1.slice(0, -1)) };
     }
 
     default:
