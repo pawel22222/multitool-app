@@ -2,11 +2,11 @@ import { useReducer } from 'react';
 
 type Props = {};
 
-type Operators = '+' | '-' | '*' | '/';
+type Signs = '+' | '-' | '*' | '/';
 type DecimalPoint = '.';
 type Digits = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '0';
 type Chars = Digits | DecimalPoint;
-type CalcState = { n1: string; n2: string; sign: Operators | null; result: string };
+type CalcState = { n1: string; n2: string; sign: Signs | null; result: string };
 type CalcActions =
   | 'enterChar'
   | 'useSign'
@@ -23,19 +23,20 @@ const PRECISION = 12;
 const DECIMAL_POINT: DecimalPoint = '.';
 const INITIAL_N: Digits = '0';
 const INITIAL_STATE: Readonly<CalcState> = { n1: INITIAL_N, n2: INITIAL_N, sign: null, result: '' };
+export const DIVISION_BY_ZERO_ERROR = 'Nie można dzielić przez zero';
 
-function formatNumber(n: string | number): string {
+export function formatNumber(n: string | number): string {
   if (String(n).includes(DECIMAL_POINT)) {
     return String(n);
   }
   return String(Number(n));
 }
 
-function parseNumber(n: number | string): string {
+export function parseNumber(n: number | string): string {
   return String(Number(Number(n).toPrecision(PRECISION)));
 }
 
-function calculateTwoNumbers(s1: string, s2: string, sign: Operators | null) {
+export function calculateTwoNumbers(s1: string, s2: string, sign: Signs | null) {
   if (!sign) return s1;
 
   const n1 = Number(s1);
@@ -50,7 +51,7 @@ function calculateTwoNumbers(s1: string, s2: string, sign: Operators | null) {
       return parseNumber(n1 * n2);
     case '/':
       if (n2 === 0) {
-        return 'Nie można dzielić przez zero';
+        return DIVISION_BY_ZERO_ERROR;
       }
       return parseNumber(n1 / n2);
     default:
@@ -152,7 +153,7 @@ export default function Calculator({}: Props) {
     backspace() {
       dispatch({ type: 'backspace' });
     },
-    useSign(sign: Operators) {
+    useSign(sign: Signs) {
       dispatch({ type: 'useSign', payload: { sign } });
     },
     calculate() {
