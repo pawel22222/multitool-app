@@ -40,3 +40,9 @@ export type AllActions =
   | BackspaceAction;
 
 export type CalculatorActions = Record<CalcActionNames, Function>;
+export interface KeyData {
+  content: string;
+  className: string;
+  position: [row: number, column: number];
+  onClick: () => void;
+}
