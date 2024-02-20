@@ -4,7 +4,7 @@ import { CalculatorContextProvider } from './context/CalculatorContext';
 
 function App() {
   return (
-    <div>
+    <div className='app-container light'>
       <h1>Calculator App</h1>
 
       <CalculatorContextProvider>

@@ -6,6 +6,7 @@ import {
   Chars,
   DecimalPoint,
   Digits,
+  KeyData,
   Signs,
 } from '../types/calculator';
 import { calculateTwoNumbers, formatNumberToDisplay } from '../utils/calculator';
@@ -100,6 +101,7 @@ function calculatorReducer(state: CalcState, { type, payload }: AllActions): Cal
 interface CalculatorContextData {
   calcState: { n1: string; n2: string; sign: Signs | null; result: string };
   actions: CalculatorActions;
+  standardKeyboard: Readonly<KeyData[]>;
 }
 
 const CalculatorContext = createContext<CalculatorContextData | undefined>(undefined);
@@ -140,8 +142,161 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
     },
   };
 
+  const STANDARD_KEYBOARD: KeyData[] = [
+    {
+      content: '9',
+      className: 'key-light',
+      position: [3, 3],
+      onClick: () => actions.enterChar('9'),
+    },
+    {
+      content: '1',
+      className: 'key-light',
+      position: [5, 1],
+      onClick: () => actions.enterChar('1'),
+    },
+    {
+      content: '2',
+      className: 'key-light',
+      position: [5, 2],
+      onClick: () => actions.enterChar('2'),
+    },
+    {
+      content: '3',
+      className: 'key-light',
+      position: [5, 3],
+      onClick: () => actions.enterChar('3'),
+    },
+    {
+      content: '4',
+      className: 'key-light',
+      position: [4, 1],
+      onClick: () => actions.enterChar('4'),
+    },
+    {
+      content: '5',
+      className: 'key-light',
+      position: [4, 2],
+      onClick: () => actions.enterChar('5'),
+    },
+    {
+      content: '6',
+      className: 'key-light',
+      position: [4, 3],
+      onClick: () => actions.enterChar('6'),
+    },
+    {
+      content: '7',
+      className: 'key-light',
+      position: [3, 1],
+      onClick: () => actions.enterChar('7'),
+    },
+    {
+      content: '8',
+      className: 'key-light',
+      position: [3, 2],
+      onClick: () => actions.enterChar('8'),
+    },
+    {
+      content: '9',
+      className: 'key-light',
+      position: [3, 3],
+      onClick: () => actions.enterChar('9'),
+    },
+    {
+      content: '0',
+      className: 'key-light',
+      position: [6, 2],
+      onClick: () => actions.enterChar('0'),
+    },
+    {
+      content: ',',
+      className: 'key-light',
+      position: [6, 3],
+      onClick: () => actions.enterChar(DECIMAL_POINT),
+    },
+    {
+      content: 'C',
+      className: 'key-dark',
+      position: [1, 3],
+      onClick: () => actions.clear(),
+    },
+    {
+      content: 'CE',
+      className: 'key-dark',
+      position: [1, 2],
+      onClick: () => actions.clearEntry(),
+    },
+    {
+      content: '<-',
+      className: 'key-dark',
+      position: [1, 4],
+      onClick: () => actions.backspace(),
+    },
+    {
+      content: '+',
+      className: 'key-dark',
+      position: [5, 4],
+      onClick: () => actions.useSign('+'),
+    },
+    {
+      content: '-',
+      className: 'key-dark',
+      position: [4, 4],
+      onClick: () => actions.useSign('-'),
+    },
+    {
+      content: '*',
+      className: 'key-dark',
+      position: [3, 4],
+      onClick: () => actions.useSign('*'),
+    },
+    {
+      content: '/',
+      className: 'key-dark',
+      position: [2, 4],
+      onClick: () => actions.useSign('/'),
+    },
+    {
+      content: '1/x',
+      className: 'key-dark',
+      position: [2, 1],
+      onClick: () => actions.inverse(),
+    },
+    {
+      content: '+/-',
+      className: 'key-light',
+      position: [6, 1],
+      onClick: () => actions.opposite(),
+    },
+    {
+      content: 'x2',
+      className: 'key-dark',
+      position: [2, 2],
+      onClick: () => actions.power(),
+    },
+    {
+      content: '2x',
+      className: 'key-dark',
+      position: [2, 3],
+      onClick: () => actions.root(),
+    },
+    {
+      content: '%',
+      className: 'key-dark',
+      position: [1, 1],
+      onClick: () => {},
+    },
+    {
+      content: '=',
+      className: 'key-equals',
+      position: [4, 6],
+      onClick: () => actions.calculate(),
+    },
+  ] as const;
+
   return (
-    <CalculatorContext.Provider value={{ calcState, actions }}>
+    <CalculatorContext.Provider value={{ calcState, actions, standardKeyboard: STANDARD_KEYBOARD }}>
       {children}
     </CalculatorContext.Provider>
   );
