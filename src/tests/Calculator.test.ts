@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import {
-  DIVISION_BY_ZERO_ERROR,
-  calculateTwoNumbers,
-  formatNumberToDisplay,
-  parseNumber,
-} from '../calculator/Calculator';
+import { calculateTwoNumbers, formatNumberToDisplay, parseNumber } from '../utils/calculator';
+import { DIVISION_BY_ZERO_ERROR } from '../context/CalculatorContext';
 
 describe('calculateTwoNumbers function', () => {
   it('Add two numbers Add', () => {
