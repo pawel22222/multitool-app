@@ -1,0 +1,33 @@
+.minimalized-app {
+  display: flex;
+  align-items: center;
+  background-color: $bg-gray-light;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  user-select: none;
+
+  &:hover {
+    border: 1px solid gray;
+  }
+
+  .label {
+    font-size: 16px;
+    text-wrap: nowrap;
+    margin-right: 5px;
+  }
+
+  .close {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    padding: 10px;
+
+    &:hover {
+      background-color: $bg-red;
+    }
+  }
+}

@@ -11,7 +11,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react-refresh"],
+  "plugins": ["react", "react-hooks", "react-refresh"],
   "rules": {
     "no-empty-function": "off",
     "no-useless-constructor": "off",
@@ -29,7 +29,6 @@
     "no-unused-vars": "off",
     "camelcase": "off",
     "@typescript-eslint/no-shadow": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
     "max-classes-per-file": "off",
     "class-methods-use-this": "off",
     "arrow-body-style": "off",
@@ -43,7 +42,6 @@
     "no-nested-ternary": "off",
     "import/no-unresolved": [0, { "caseSensitive": false }],
     "no-use-before-define": [2, { "functions": false }],
-    "no-console": ["warn", { "allow": ["error"] }],
     // prettier
     "react/jsx-indent-props": "off",
     "react/jsx-props-no-multi-spaces": "off",

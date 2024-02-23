@@ -1,0 +1,27 @@
+.calculator-display {
+  color: $color-secondary;
+  height: 160px;
+  margin-bottom: 4px;
+  display: flex;
+
+  .helper {
+    width: 50%;
+  }
+  .preview {
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .small {
+    font-size: 14px;
+    color: gray;
+    user-select: none;
+  }
+
+  .large {
+    font-size: 40px;
+  }
+}

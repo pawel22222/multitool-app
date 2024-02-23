@@ -1,5 +1,6 @@
-import Key from '../components/calculator/Key';
-import { KeyData } from '../types/calculator';
+import CalculatorKey from '../calculatorKey';
+import { KeyData } from '../../types/calculator';
+import './style.scss';
 
 interface Props {
   keys: Readonly<KeyData[]>;
@@ -7,9 +8,9 @@ interface Props {
 
 function CalculatorKeyboard({ keys }: Props) {
   return (
-    <div className='keyboard'>
+    <div className='calculator-keyboard'>
       {keys.map((key) => (
-        <Key
+        <CalculatorKey
           key={key.content}
           content={key.content}
           className={key.className}

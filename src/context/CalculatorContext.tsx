@@ -44,14 +44,14 @@ function calculatorReducer(state: CalcState, { type, payload }: AllActions): Cal
     case 'useSign': {
       if (sign) {
         const result = calculateTwoNumbers(n1, n2, sign);
-        return { ...state, sign: payload.sign, n1: result, n2: INITIAL_N };
+        return { result: '', sign: payload.sign, n1: result, n2: INITIAL_N };
       }
       return { ...state, sign: payload.sign, result: '', n2: INITIAL_N };
     }
 
     case 'calculate': {
       const result = calculateTwoNumbers(n1, n2, sign);
-      return { ...INITIAL_STATE, result, n1: result };
+      return { ...state, result };
     }
 
     case 'inverse': {
@@ -144,12 +144,6 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
 
   const STANDARD_KEYBOARD: KeyData[] = [
     {
-      content: '9',
-      className: 'key-light',
-      position: [3, 3],
-      onClick: () => actions.enterChar('9'),
-    },
-    {
       content: '1',
       className: 'key-light',
       position: [5, 1],
@@ -228,7 +222,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
       onClick: () => actions.clearEntry(),
     },
     {
-      content: '<-',
+      content: '⌫',
       className: 'key-dark',
       position: [1, 4],
       onClick: () => actions.backspace(),
@@ -246,13 +240,13 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
       onClick: () => actions.useSign('-'),
     },
     {
-      content: '*',
+      content: '×',
       className: 'key-dark',
       position: [3, 4],
       onClick: () => actions.useSign('*'),
     },
     {
-      content: '/',
+      content: '÷',
       className: 'key-dark',
       position: [2, 4],
       onClick: () => actions.useSign('/'),
@@ -264,19 +258,19 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
       onClick: () => actions.inverse(),
     },
     {
-      content: '+/-',
+      content: '±',
       className: 'key-light',
       position: [6, 1],
       onClick: () => actions.opposite(),
     },
     {
-      content: 'x2',
+      content: 'x²',
       className: 'key-dark',
       position: [2, 2],
       onClick: () => actions.power(),
     },
     {
-      content: '2x',
+      content: '²√x',
       className: 'key-dark',
       position: [2, 3],
       onClick: () => actions.root(),

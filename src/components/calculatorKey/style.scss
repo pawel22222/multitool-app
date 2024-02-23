@@ -1,0 +1,41 @@
+.calculator-key {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  user-select: none;
+}
+
+.key-light {
+  background-color: $bg-gray-light;
+  &:hover {
+    background-color: $bg-gray-dark;
+  }
+}
+
+.key-dark {
+  background-color: $bg-gray-dark;
+
+  &:hover {
+    background-color: $bg-gray-light;
+  }
+}
+
+.key-equals {
+  background-color: $bg-blue-light;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $bg-blue-dark;
+  }
+}
+
+@for $r from 1 through 6 {
+  @for $c from 1 through 4 {
+    .order-#{$r}-#{$c} {
+      grid-row-start: $r;
+      grid-column-start: $c;
+    }
+  }
+}

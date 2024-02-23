@@ -1,0 +1,31 @@
+.app-container {
+  display: flex;
+  flex-flow: column;
+  width: inherit;
+  height: inherit;
+  padding: 8px;
+  position: absolute;
+
+  .app-header {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 8px 0;
+    background-color: #242424;
+  }
+
+  .app-pulpit {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .app-nav {
+    z-index: 2;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    padding-top: 8px;
+    background-color: #242424;
+  }
+}

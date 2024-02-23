@@ -1,0 +1,10 @@
+.pulpit-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $bg-gray-light;
+  display: flex;
+  flex-flow: row wrap;
+  overflow-y: auto;
+  border-radius: 8px;
+}
