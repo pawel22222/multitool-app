@@ -1,0 +1,9 @@
+.calculator-container {
+  min-width: 400px;
+  min-height: 500px;
+  padding: 4px;
+  display: flex;
+  flex-flow: column;
+  border-radius: 10px;
+  color: $color-primary;
+}

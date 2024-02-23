@@ -13,10 +13,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
 body {
   margin: 0;
   display: flex;
-  /* place-items: center;
-  min-width: 320px;
-  min-height: 100vh; */
+  width: 100%;
+  height: 100vh;
+}
+
+body #root {
+  width: inherit;
+  height: inherit;
 }

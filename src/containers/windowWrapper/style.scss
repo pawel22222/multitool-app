@@ -1,0 +1,50 @@
+.window-wrapper {
+  border: 1px solid rgb(121, 121, 121);
+  border-radius: 10px;
+  background-color: $bg-primary;
+  overflow: hidden;
+  align-items: flex-start;
+  width: fit-content;
+  height: fit-content;
+
+  &.fullscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .window-header {
+    display: flex;
+    justify-content: space-between;
+
+    .window-header-name {
+      padding: 10px;
+    }
+
+    .window-header-nav {
+      .window-nav-button {
+        background-color: transparent;
+        border: none;
+        padding: 10px;
+        width: 50px;
+
+        &.window-nav-button--close {
+          &:hover {
+            background-color: $bg-red;
+          }
+        }
+
+        &:hover {
+          background-color: $bg-gray-light;
+        }
+      }
+    }
+  }
+
+  .window-main {
+    width: 100%;
+    height: 100%;
+  }
+}

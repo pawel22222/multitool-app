@@ -1,4 +1,5 @@
-import { Signs } from '../types/calculator';
+import { Signs } from '../../types/calculator';
+import './style.scss';
 
 interface Props {
   n1: string;
@@ -38,7 +39,7 @@ function CalculatorDisplay({ n1, n2, sign, result }: Props) {
   };
 
   return (
-    <div className='display'>
+    <div className='calculator-display'>
       <div className='helper'>
         <div className='small'>n1: {n1}</div>
         <div className='small'>sign: {sign}</div>

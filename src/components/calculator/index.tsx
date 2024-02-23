@@ -1,7 +1,7 @@
-import '../scss/Calculator.scss';
-import { useCalculatorContext } from '../context/CalculatorContext';
-import CalculatorKeyboard from './CalculatorKeyboard';
-import CalculatorDisplay from './CalculatorDisplay';
+import './style.scss';
+import { useCalculatorContext } from '../../context/CalculatorContext';
+import CalculatorKeyboard from '../calculatorKeyboard';
+import CalculatorDisplay from '../calculatorDisplay';
 
 type Props = {};
 
