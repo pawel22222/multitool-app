@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useReducer } from 'react';
+import { createContext, useContext, ReactNode, useReducer, useMemo } from 'react';
 import {
   AllActions,
   CalcState,
@@ -65,7 +65,7 @@ function calculatorReducer(state: CalcState, { type, payload }: AllActions): Cal
     }
 
     case 'power': {
-      const result = String(Math.pow(Number(n1), 2));
+      const result = String(Number(n1) ** 2);
       return { ...state, n1: result, result };
     }
 
@@ -109,188 +109,199 @@ const CalculatorContext = createContext<CalculatorContextData | undefined>(undef
 export const CalculatorContextProvider = ({ children }: { children: ReactNode }) => {
   const [calcState, dispatch] = useReducer(calculatorReducer, INITIAL_STATE);
 
-  const actions: CalculatorActions = {
-    enterChar(char: Chars) {
-      dispatch({ type: 'enterChar', payload: { char } });
-    },
-    clear() {
-      dispatch({ type: 'clear', payload: null });
-    },
-    backspace() {
-      dispatch({ type: 'backspace', payload: null });
-    },
-    useSign(sign: Signs) {
-      dispatch({ type: 'useSign', payload: { sign } });
-    },
-    calculate() {
-      dispatch({ type: 'calculate', payload: null });
-    },
-    clearEntry() {
-      dispatch({ type: 'clearEntry', payload: null });
-    },
-    inverse() {
-      dispatch({ type: 'inverse', payload: null });
-    },
-    opposite() {
-      dispatch({ type: 'opposite', payload: null });
-    },
-    power() {
-      dispatch({ type: 'power', payload: null });
-    },
-    root() {
-      dispatch({ type: 'root', payload: null });
-    },
-  };
+  const actions: CalculatorActions = useMemo(
+    () => ({
+      enterChar(char: Chars) {
+        dispatch({ type: 'enterChar', payload: { char } });
+      },
+      clear() {
+        dispatch({ type: 'clear', payload: null });
+      },
+      backspace() {
+        dispatch({ type: 'backspace', payload: null });
+      },
+      useSign(sign: Signs) {
+        dispatch({ type: 'useSign', payload: { sign } });
+      },
+      calculate() {
+        dispatch({ type: 'calculate', payload: null });
+      },
+      clearEntry() {
+        dispatch({ type: 'clearEntry', payload: null });
+      },
+      inverse() {
+        dispatch({ type: 'inverse', payload: null });
+      },
+      opposite() {
+        dispatch({ type: 'opposite', payload: null });
+      },
+      power() {
+        dispatch({ type: 'power', payload: null });
+      },
+      root() {
+        dispatch({ type: 'root', payload: null });
+      },
+    }),
+    [],
+  );
 
-  const STANDARD_KEYBOARD: KeyData[] = [
-    {
-      content: '1',
-      className: 'key-light',
-      position: [5, 1],
-      onClick: () => actions.enterChar('1'),
-    },
-    {
-      content: '2',
-      className: 'key-light',
-      position: [5, 2],
-      onClick: () => actions.enterChar('2'),
-    },
-    {
-      content: '3',
-      className: 'key-light',
-      position: [5, 3],
-      onClick: () => actions.enterChar('3'),
-    },
-    {
-      content: '4',
-      className: 'key-light',
-      position: [4, 1],
-      onClick: () => actions.enterChar('4'),
-    },
-    {
-      content: '5',
-      className: 'key-light',
-      position: [4, 2],
-      onClick: () => actions.enterChar('5'),
-    },
-    {
-      content: '6',
-      className: 'key-light',
-      position: [4, 3],
-      onClick: () => actions.enterChar('6'),
-    },
-    {
-      content: '7',
-      className: 'key-light',
-      position: [3, 1],
-      onClick: () => actions.enterChar('7'),
-    },
-    {
-      content: '8',
-      className: 'key-light',
-      position: [3, 2],
-      onClick: () => actions.enterChar('8'),
-    },
-    {
-      content: '9',
-      className: 'key-light',
-      position: [3, 3],
-      onClick: () => actions.enterChar('9'),
-    },
-    {
-      content: '0',
-      className: 'key-light',
-      position: [6, 2],
-      onClick: () => actions.enterChar('0'),
-    },
-    {
-      content: ',',
-      className: 'key-light',
-      position: [6, 3],
-      onClick: () => actions.enterChar(DECIMAL_POINT),
-    },
-    {
-      content: 'C',
-      className: 'key-dark',
-      position: [1, 3],
-      onClick: () => actions.clear(),
-    },
-    {
-      content: 'CE',
-      className: 'key-dark',
-      position: [1, 2],
-      onClick: () => actions.clearEntry(),
-    },
-    {
-      content: '⌫',
-      className: 'key-dark',
-      position: [1, 4],
-      onClick: () => actions.backspace(),
-    },
-    {
-      content: '+',
-      className: 'key-dark',
-      position: [5, 4],
-      onClick: () => actions.useSign('+'),
-    },
-    {
-      content: '-',
-      className: 'key-dark',
-      position: [4, 4],
-      onClick: () => actions.useSign('-'),
-    },
-    {
-      content: '×',
-      className: 'key-dark',
-      position: [3, 4],
-      onClick: () => actions.useSign('*'),
-    },
-    {
-      content: '÷',
-      className: 'key-dark',
-      position: [2, 4],
-      onClick: () => actions.useSign('/'),
-    },
-    {
-      content: '1/x',
-      className: 'key-dark',
-      position: [2, 1],
-      onClick: () => actions.inverse(),
-    },
-    {
-      content: '±',
-      className: 'key-light',
-      position: [6, 1],
-      onClick: () => actions.opposite(),
-    },
-    {
-      content: 'x²',
-      className: 'key-dark',
-      position: [2, 2],
-      onClick: () => actions.power(),
-    },
-    {
-      content: '²√x',
-      className: 'key-dark',
-      position: [2, 3],
-      onClick: () => actions.root(),
-    },
-    {
-      content: '%',
-      className: 'key-dark',
-      position: [1, 1],
-      onClick: () => {},
-    },
-    {
-      content: '=',
-      className: 'key-equals',
-      position: [4, 6],
-      onClick: () => actions.calculate(),
-    },
-  ] as const;
+  const STANDARD_KEYBOARD: KeyData[] = useMemo(
+    () => [
+      {
+        content: '1',
+        className: 'key-light',
+        position: [5, 1],
+        onClick: () => actions.enterChar('1'),
+      },
+      {
+        content: '2',
+        className: 'key-light',
+        position: [5, 2],
+        onClick: () => actions.enterChar('2'),
+      },
+      {
+        content: '3',
+        className: 'key-light',
+        position: [5, 3],
+        onClick: () => actions.enterChar('3'),
+      },
+      {
+        content: '4',
+        className: 'key-light',
+        position: [4, 1],
+        onClick: () => actions.enterChar('4'),
+      },
+      {
+        content: '5',
+        className: 'key-light',
+        position: [4, 2],
+        onClick: () => actions.enterChar('5'),
+      },
+      {
+        content: '6',
+        className: 'key-light',
+        position: [4, 3],
+        onClick: () => actions.enterChar('6'),
+      },
+      {
+        content: '7',
+        className: 'key-light',
+        position: [3, 1],
+        onClick: () => actions.enterChar('7'),
+      },
+      {
+        content: '8',
+        className: 'key-light',
+        position: [3, 2],
+        onClick: () => actions.enterChar('8'),
+      },
+      {
+        content: '9',
+        className: 'key-light',
+        position: [3, 3],
+        onClick: () => actions.enterChar('9'),
+      },
+      {
+        content: '0',
+        className: 'key-light',
+        position: [6, 2],
+        onClick: () => actions.enterChar('0'),
+      },
+      {
+        content: ',',
+        className: 'key-light',
+        position: [6, 3],
+        onClick: () => actions.enterChar(DECIMAL_POINT),
+      },
+      {
+        content: 'C',
+        className: 'key-dark',
+        position: [1, 3],
+        onClick: () => actions.clear(),
+      },
+      {
+        content: 'CE',
+        className: 'key-dark',
+        position: [1, 2],
+        onClick: () => actions.clearEntry(),
+      },
+      {
+        content: '⌫',
+        className: 'key-dark',
+        position: [1, 4],
+        onClick: () => actions.backspace(),
+      },
+      {
+        content: '+',
+        className: 'key-dark',
+        position: [5, 4],
+        onClick: () => actions.useSign('+'),
+      },
+      {
+        content: '-',
+        className: 'key-dark',
+        position: [4, 4],
+        onClick: () => actions.useSign('-'),
+      },
+      {
+        content: '×',
+        className: 'key-dark',
+        position: [3, 4],
+        onClick: () => actions.useSign('*'),
+      },
+      {
+        content: '÷',
+        className: 'key-dark',
+        position: [2, 4],
+        onClick: () => actions.useSign('/'),
+      },
+      {
+        content: '1/x',
+        className: 'key-dark',
+        position: [2, 1],
+        onClick: () => actions.inverse(),
+      },
+      {
+        content: '±',
+        className: 'key-light',
+        position: [6, 1],
+        onClick: () => actions.opposite(),
+      },
+      {
+        content: 'x²',
+        className: 'key-dark',
+        position: [2, 2],
+        onClick: () => actions.power(),
+      },
+      {
+        content: '²√x',
+        className: 'key-dark',
+        position: [2, 3],
+        onClick: () => actions.root(),
+      },
+      {
+        content: '%',
+        className: 'key-dark',
+        position: [1, 1],
+        onClick: () => {},
+      },
+      {
+        content: '=',
+        className: 'key-equals',
+        position: [4, 6],
+        onClick: () => actions.calculate(),
+      },
+    ],
+    [actions],
+  );
 
   return (
-    <CalculatorContext.Provider value={{ calcState, actions, standardKeyboard: STANDARD_KEYBOARD }}>
+    <CalculatorContext.Provider
+      value={useMemo(
+        () => ({ calcState, actions, standardKeyboard: STANDARD_KEYBOARD }),
+        [STANDARD_KEYBOARD, actions, calcState],
+      )}
+    >
       {children}
     </CalculatorContext.Provider>
   );
