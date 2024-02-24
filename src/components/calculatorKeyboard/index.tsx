@@ -1,15 +1,39 @@
+import { useEffect } from 'react';
 import CalculatorKey from '../calculatorKey';
 import { KeyData } from '../../types/calculator';
 import './style.scss';
 
 interface Props {
-  keys: Readonly<KeyData[]>;
+  keyboard: Readonly<KeyData[]>;
 }
 
-function CalculatorKeyboard({ keys }: Props) {
+function CalculatorKeyboard({ keyboard }: Props) {
+  const keys: [content: string, onClick: () => void][] = keyboard
+    .filter(({ key }) => key)
+    .map(({ key, onClick }) => [key, onClick]);
+  const isFocused = true;
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const key = keys.find(([key]) => key === e.key);
+
+      if (key) {
+        key[1]();
+      }
+    }
+
+    if (isFocused) {
+      document.addEventListener('keydown', onKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isFocused, keys]);
+
   return (
     <div className='calculator-keyboard'>
-      {keys.map((key) => (
+      {keyboard.map((key) => (
         <CalculatorKey
           key={key.content}
           content={key.content}

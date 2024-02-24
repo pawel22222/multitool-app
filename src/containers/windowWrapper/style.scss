@@ -3,7 +3,8 @@
   border-radius: 10px;
   background-color: $bg-primary;
   overflow: hidden;
-  align-items: flex-start;
+  display: flex;
+  flex-flow: column;
   width: fit-content;
   height: fit-content;
 

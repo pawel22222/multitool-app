@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { describe, expect, it } from 'vitest';
 import { calculateTwoNumbers, formatNumberToDisplay, parseNumber } from '../utils/calculator';
 import { DIVISION_BY_ZERO_ERROR } from '../context/CalculatorContext';

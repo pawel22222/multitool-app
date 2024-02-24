@@ -3,9 +3,7 @@ import { useCalculatorContext } from '../../context/CalculatorContext';
 import CalculatorKeyboard from '../calculatorKeyboard';
 import CalculatorDisplay from '../calculatorDisplay';
 
-type Props = {};
-
-export default function Calculator({}: Props) {
+export default function Calculator() {
   const { calcState, standardKeyboard } = useCalculatorContext();
 
   return (
@@ -17,7 +15,7 @@ export default function Calculator({}: Props) {
         result={calcState.result}
       />
 
-      <CalculatorKeyboard keys={standardKeyboard} />
+      <CalculatorKeyboard keyboard={standardKeyboard} />
     </div>
   );
 }

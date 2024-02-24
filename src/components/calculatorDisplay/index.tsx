@@ -2,40 +2,50 @@ import { Signs } from '../../types/calculator';
 import './style.scss';
 
 interface Props {
-  n1: string;
-  n2: string;
+  n1: string | null;
+  n2: string | null;
   sign: Signs | null;
-  result: string;
+  result: string | null;
 }
 
 function CalculatorDisplay({ n1, n2, sign, result }: Props) {
   const display = () => {
-    if (!sign && n2 === '0' && !result) {
-      return <div className='large'>{n1}</div>;
-    } else if (sign && n2 === '0' && !result) {
+    if (!sign && !n2 && !result) {
+      return <div className='large'>{n1 || '0'}</div>;
+    }
+    if (!sign && !n2) {
+      return (
+        <>
+          <div className='small'>{n1} =</div>
+          <div className='large'>{n1}</div>
+        </>
+      );
+    }
+    if (sign && !n2 && !result) {
       return (
         <>
           <div className='small'>{`${n1} ${sign}`}</div>
           <div className='large'>{n1}</div>
         </>
       );
-    } else if (sign && n2 && !result) {
+    }
+    if (sign && n2 && !result) {
       return (
         <>
-          <div className='small'>{`${n1} ${sign}`}</div>
+          <div className='small'>{`${n1} ${sign} ${n2}`}</div>
           <div className='large'>{n2}</div>
         </>
       );
-    } else if (result) {
+    }
+    if (result) {
       return (
         <>
           <div className='small'>{`${n1} ${sign} ${n2} =`}</div>
           <div className='large'>{result}</div>
         </>
       );
-    } else {
-      return <div className='large'>Brak danych</div>;
     }
+    return <div className='large'>Brak danych</div>;
   };
 
   return (
