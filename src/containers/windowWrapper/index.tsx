@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import './style.scss';
 import { WindowData } from '../../App';
 
@@ -19,14 +19,48 @@ function WindowWrapper({
   setIsMinimalize,
   setIsFullscreen,
 }: Props) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [mouseDown, setMouseDown] = useState(false);
+  const windowWrapper = useRef<HTMLDivElement>(null);
+
   return (
     !windowData.isMinimalize && (
-      <div className={`window-wrapper ${windowData.isFullscreen ? 'fullscreen' : ''}`}>
-        <header className='window-header'>
+      <div
+        ref={windowWrapper}
+        className={`window-wrapper ${windowData.isFullscreen ? 'fullscreen' : ''}`}
+        style={
+          windowData.isFullscreen
+            ? { top: 0, left: 0 }
+            : { top: `${position.y}px`, left: `${position.x}px` }
+        }
+      >
+        <header
+          role='presentation'
+          className='window-header'
+          onMouseDown={() => setMouseDown(true)}
+          onMouseUp={() => setMouseDown(false)}
+          onMouseMove={(e) => {
+            if (mouseDown) {
+              setPosition({
+                x: e.pageX - (windowWrapper.current?.offsetWidth || 0) / 3,
+                y: e.pageY - 120,
+              });
+            }
+          }}
+        >
           <span className='window-header-name'>{name}</span>
-          <nav className='window-header-nav'>
+          <nav
+            role='presentation'
+            className='window-header-nav'
+            onMouseDown={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <button
-              onClick={() => setIsMinimalize(windowData.id, true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMinimalize(windowData.id, true);
+              }}
               className='window-nav-button'
             >
               _
