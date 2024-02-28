@@ -31,8 +31,9 @@ h6 {
 body {
   margin: 0;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 body #root {

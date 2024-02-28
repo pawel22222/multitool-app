@@ -121,6 +121,9 @@ function calculatorReducer(state: CalcState, { type, payload }: AllActions): Cal
     }
 
     case 'backspace': {
+      if (state.sign) {
+        return { ...state, n2: formatNumberToDisplay(state.n2?.slice(0, -1) || null) };
+      }
       return { ...state, n1: formatNumberToDisplay(state.n1?.slice(0, -1) || null) };
     }
 
