@@ -5,13 +5,13 @@ import './style.scss';
 
 interface Props {
   keyboard: Readonly<KeyData[]>;
+  isFocused: boolean;
 }
 
-function CalculatorKeyboard({ keyboard }: Props) {
+function CalculatorKeyboard({ keyboard, isFocused }: Props) {
   const keys: [content: string, onClick: () => void][] = keyboard
     .filter(({ key }) => key)
     .map(({ key, onClick }) => [key, onClick]);
-  const isFocused = true;
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {

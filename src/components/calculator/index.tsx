@@ -3,7 +3,11 @@ import { useCalculatorContext } from '../../context/CalculatorContext';
 import CalculatorKeyboard from '../calculatorKeyboard';
 import CalculatorDisplay from '../calculatorDisplay';
 
-export default function Calculator() {
+type Props = {
+  isFocused: boolean;
+};
+
+export default function Calculator({ isFocused }: Props) {
   const { calcState, standardKeyboard } = useCalculatorContext();
 
   return (
@@ -15,7 +19,7 @@ export default function Calculator() {
         result={calcState.result}
       />
 
-      <CalculatorKeyboard keyboard={standardKeyboard} />
+      <CalculatorKeyboard keyboard={standardKeyboard} isFocused={isFocused} />
     </div>
   );
 }
