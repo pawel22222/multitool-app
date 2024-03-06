@@ -14,20 +14,38 @@ export interface WindowData {
   type: WindowTypes;
   isFullscreen: boolean;
   isMinimalize: boolean;
+  minSize: { width: string; height: string };
 }
 
 function App() {
   const [openedApps, setOpenedApps] = useState<WindowData[]>([]);
 
   function createApp(type: WindowTypes): WindowData {
-    return { id: uuidv4(), type, isFullscreen: false, isMinimalize: false };
+    const commonProps = { id: uuidv4(), type, isFullscreen: false, isMinimalize: false };
+    const customProps = (() => {
+      switch (type) {
+        case 'calculator':
+          return { minSize: { width: '420px', height: '600px' } };
+        case 'other-app':
+          return { minSize: { width: '420px', height: '100px' } };
+
+        default:
+          const never: never = type;
+          return never;
+      }
+    })();
+
+    return { ...commonProps, ...customProps };
   }
+
   function openApp(type: WindowTypes) {
     setOpenedApps((prev) => [...prev, createApp(type)]);
   }
+
   function closeApp(id: string) {
     setOpenedApps((prev) => prev.filter((app) => app.id !== id));
   }
+
   function setIsMinimalize(id: string, isMinimalize: boolean) {
     setOpenedApps((prev) => {
       return prev.map((app) => {
@@ -38,6 +56,7 @@ function App() {
       });
     });
   }
+
   function setIsFullscreen(id: string, isFullscreen: boolean) {
     setOpenedApps((prev) => {
       return prev.map((app) => {

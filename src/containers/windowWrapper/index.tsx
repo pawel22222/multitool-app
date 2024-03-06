@@ -20,8 +20,19 @@ function WindowWrapper({
   setIsFullscreen,
 }: Props) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [mouseDown, setMouseDown] = useState(false);
+  const [mouseDownHeader, setMouseDownHeader] = useState(false);
   const windowWrapper = useRef<HTMLDivElement>(null);
+
+  const onMoveWindow = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (!windowWrapper.current) return;
+    if (mouseDownHeader) {
+      setPosition({
+        x: e.pageX - (windowWrapper.current.offsetWidth || 0) / 3,
+        y: e.pageY - 120,
+      });
+    }
+  };
 
   return (
     !windowData.isMinimalize && (
@@ -31,22 +42,22 @@ function WindowWrapper({
         style={
           windowData.isFullscreen
             ? { top: 0, left: 0 }
-            : { top: `${position.y}px`, left: `${position.x}px` }
+            : {
+                top: `${position.y}px`,
+                left: `${position.x}px`,
+                minWidth: windowData.minSize.width,
+                minHeight: windowData.minSize.height,
+                width: windowData.minSize.width,
+                height: windowData.minSize.height,
+              }
         }
       >
         <header
           role='presentation'
           className='window-header'
-          onMouseDown={() => setMouseDown(true)}
-          onMouseUp={() => setMouseDown(false)}
-          onMouseMove={(e) => {
-            if (mouseDown) {
-              setPosition({
-                x: e.pageX - (windowWrapper.current?.offsetWidth || 0) / 3,
-                y: e.pageY - 120,
-              });
-            }
-          }}
+          onMouseDown={() => setMouseDownHeader(true)}
+          onMouseUp={() => setMouseDownHeader(false)}
+          onMouseMove={onMoveWindow}
         >
           <span className='window-header-name'>{name}</span>
           <nav

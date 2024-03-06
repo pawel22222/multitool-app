@@ -6,10 +6,10 @@
   display: flex;
   flex-flow: column;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
-  min-width: 350px;
   width: fit-content;
   height: fit-content;
   position: absolute;
+  resize: both;
 
   &.fullscreen {
     width: 100%;
@@ -30,6 +30,7 @@
     .window-header-nav {
       height: 60px;
       display: flex;
+
       .window-nav-button {
         background-color: transparent;
         border: none;
