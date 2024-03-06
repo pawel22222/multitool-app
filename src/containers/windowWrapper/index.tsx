@@ -9,6 +9,8 @@ interface Props {
   closeApp: (id: string) => void;
   setIsMinimalize: (id: string, isMinimalize: boolean) => void;
   setIsFullscreen: (id: string, isFullscreen: boolean) => void;
+  isFocused: boolean;
+  setFocusedWindowId: (id: string | null) => void;
 }
 
 function WindowWrapper({
@@ -18,6 +20,8 @@ function WindowWrapper({
   closeApp,
   setIsMinimalize,
   setIsFullscreen,
+  isFocused,
+  setFocusedWindowId,
 }: Props) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mouseDown, setMouseDown] = useState(false);
@@ -27,12 +31,21 @@ function WindowWrapper({
     !windowData.isMinimalize && (
       <div
         ref={windowWrapper}
-        className={`window-wrapper ${windowData.isFullscreen ? 'fullscreen' : ''}`}
+        className={`
+          window-wrapper 
+          ${windowData.isFullscreen ? 'fullscreen' : ''} 
+          ${isFocused ? 'focused' : ''}
+        `}
         style={
           windowData.isFullscreen
             ? { top: 0, left: 0 }
             : { top: `${position.y}px`, left: `${position.x}px` }
         }
+        role='presentation'
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          setFocusedWindowId(windowData.id);
+        }}
       >
         <header
           role='presentation'

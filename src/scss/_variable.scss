@@ -1,9 +1,14 @@
-$bg-gray-light: #555;
+$bg-gray-light: #3d3d3d;
 $bg-gray-dark: #333;
+$bg-gray-light-active: #394253;
+$bg-gray-dark-active: #333a47;
 $bg-red: #eb3535;
-$bg-blue-light: #46b5ff;
+$bg-blue-light: #61c0ff;
 $bg-blue-dark: #379cdf;
 
 $bg-primary: #222;
+$bg-primary-active: #182135;
 $color-primary: #000;
 $color-secondary: #fff;
+
+$transition-background: background-color 0.2s ease-in-out;

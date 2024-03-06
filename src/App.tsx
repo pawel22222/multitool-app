@@ -18,6 +18,7 @@ export interface WindowData {
 
 function App() {
   const [openedApps, setOpenedApps] = useState<WindowData[]>([]);
+  const [focusedWindowId, setFocusedWindowId] = useState<string | null>(null);
 
   function createApp(type: WindowTypes): WindowData {
     return { id: uuidv4(), type, isFullscreen: false, isMinimalize: false };
@@ -60,6 +61,8 @@ function App() {
               closeApp={closeApp}
               setIsMinimalize={setIsMinimalize}
               setIsFullscreen={setIsFullscreen}
+              isFocused={focusedWindowId === app.id}
+              setFocusedWindowId={setFocusedWindowId}
             >
               <Calculator />
             </WindowWrapper>
@@ -74,6 +77,8 @@ function App() {
             closeApp={closeApp}
             setIsMinimalize={setIsMinimalize}
             setIsFullscreen={setIsFullscreen}
+            isFocused={focusedWindowId === app.id}
+            setFocusedWindowId={setFocusedWindowId}
           >
             <div>other app</div>
           </WindowWrapper>
@@ -94,7 +99,13 @@ function App() {
         </Nav>
       </div>
 
-      <div className='app-pulpit'>
+      <div
+        className='app-pulpit'
+        role='presentation'
+        onMouseDown={() => {
+          setFocusedWindowId(null);
+        }}
+      >
         <PulpitContainer>{openedApps.map((app) => renderApp(app))}</PulpitContainer>
       </div>
 
