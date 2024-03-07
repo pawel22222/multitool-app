@@ -1,25 +1,41 @@
 .minimalized-app {
   display: flex;
   align-items: center;
-  background-color: $bg-gray-light;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   border: 1px solid transparent;
   user-select: none;
+  transition: $transition-background;
+  transition-property: border-color, background-color;
+  padding: 2px;
+
+  &.focused {
+    background-color: $bg-primary-active;
+
+    &:hover {
+      border: 1px solid gray;
+      background-color: $bg-gray-dark-active;
+    }
+  }
 
   &:hover {
     border: 1px solid gray;
+    background-color: $bg-gray-light-active;
   }
+
+  // .icon {
+  // }
 
   .label {
     font-size: 16px;
     text-wrap: nowrap;
-    margin-right: 5px;
+    margin: 0 5px;
   }
 
   .close {
     background-color: transparent;
+    transition: $transition-background;
     border: none;
     cursor: pointer;
     padding: 10px;
