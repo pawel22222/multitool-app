@@ -19,6 +19,7 @@ interface WindowProps {
 interface AppProps {
   displayName: string;
   iconSrc: string;
+  minSize: { width: string; height: string };
 }
 export interface WindowApp extends WindowProps, AppProps {}
 
@@ -35,11 +36,13 @@ function App() {
           return {
             iconSrc: './calc-icon.png',
             displayName: 'Calculator',
+            minSize: { width: '420px', height: '600px' },
           };
         case 'other-app':
           return {
             iconSrc: './vite.svg',
             displayName: 'Other App',
+            minSize: { width: '420px', height: '100px' },
           };
 
         default:

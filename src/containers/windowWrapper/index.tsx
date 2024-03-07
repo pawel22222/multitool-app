@@ -6,10 +6,10 @@ import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
 interface Props {
   children: ReactNode;
   windowData: WindowApp;
+  isFocused: boolean;
   closeApp: (id: string) => void;
   setIsMinimalize: (id: string, isMinimalize: boolean) => void;
   setIsFullscreen: (id: string, isFullscreen: boolean) => void;
-  isFocused: boolean;
   handleSetFocusedWindowId: (id: string | null) => void;
 }
 
@@ -27,6 +27,17 @@ function WindowWrapper({
   const windowWrapper = useRef<HTMLDivElement>(null);
   const { id, isMinimalize, isFullscreen, zIndex, iconSrc, displayName } = windowData;
 
+  const onMoveWindow = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (!windowWrapper.current) return;
+    if (mouseDown) {
+      setPosition({
+        x: e.pageX - (windowWrapper.current.offsetWidth || 0) / 3,
+        y: e.pageY - 120,
+      });
+    }
+  };
+
   return (
     !isMinimalize && (
       <OutsideMouseDownHandler onOutsideClick={() => handleSetFocusedWindowId(null)}>
@@ -41,6 +52,10 @@ function WindowWrapper({
             top: isFullscreen ? 0 : `${position.y}px`,
             left: isFullscreen ? 0 : `${position.x}px`,
             zIndex,
+            minWidth: windowData.minSize.width,
+            minHeight: windowData.minSize.height,
+            width: windowData.minSize.width,
+            height: windowData.minSize.height,
           }}
           role='presentation'
           onMouseDown={(e) => {
@@ -53,14 +68,7 @@ function WindowWrapper({
             className='window-header'
             onMouseDown={() => setMouseDown(true)}
             onMouseUp={() => setMouseDown(false)}
-            onMouseMove={(e) => {
-              if (mouseDown) {
-                setPosition({
-                  x: e.pageX - (windowWrapper.current?.offsetWidth || 0) / 3,
-                  y: e.pageY - 120,
-                });
-              }
-            }}
+            onMouseMove={onMoveWindow}
           >
             <div className='title-container'>
               <img
