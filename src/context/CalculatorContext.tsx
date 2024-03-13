@@ -1,14 +1,13 @@
-import { createContext, useContext, ReactNode, useReducer, useMemo } from 'react';
+import { createContext, useContext, type ReactNode, useReducer, useMemo } from 'react';
 import {
   AllActions,
   CalcState,
   CalculatorActions,
   Chars,
-  DecimalPoint,
   KeyData,
   Signs,
 } from '../types/calculator';
-import { calculateTwoNumbers, formatNumberToDisplay } from '../utils/calculator';
+import { DECIMAL_POINT, addCharToNumber, calculateTwoNumbers, parseBig } from '../utils/calculator';
 
 export const INITIAL_N = null;
 export const INITIAL_STATE: Readonly<CalcState> = {
@@ -17,39 +16,31 @@ export const INITIAL_STATE: Readonly<CalcState> = {
   sign: null,
   result: null,
 };
-export const DECIMAL_POINT: DecimalPoint = '.';
-export const DIVISION_BY_ZERO_ERROR = 'Nie można dzielić przez zero';
 
 function calculatorReducer(state: CalcState, { type, payload }: AllActions): CalcState {
   switch (type) {
     case 'enterChar': {
       if (state.result) {
-        return { ...INITIAL_STATE, n1: payload.char };
+        return { ...INITIAL_STATE, n1: addCharToNumber('0', payload.char) };
       }
       if (state.sign) {
-        if (payload.char === DECIMAL_POINT && state.n2?.includes(DECIMAL_POINT)) {
-          return state;
-        }
-        return { ...state, n2: formatNumberToDisplay((state.n2 || '0') + payload.char) };
+        return { ...state, n2: addCharToNumber(state.n2, payload.char) };
       }
-      if (payload.char === DECIMAL_POINT && state.n1?.includes(DECIMAL_POINT)) {
-        return state;
-      }
-      return { ...state, n1: formatNumberToDisplay((state.n1 || '0') + payload.char) };
+      return { ...state, n1: addCharToNumber(state.n1, payload.char) };
     }
 
     case 'useSign': {
       if (state.sign) {
-        const result = calculateTwoNumbers(state.n1 || '0', state.n2 || '0', state.sign);
+        const result = calculateTwoNumbers(state.n1, state.n2, state.sign);
         return { result: '', sign: payload.sign, n1: result, n2: INITIAL_N };
       }
-      return { ...state, sign: payload.sign, result: '', n2: INITIAL_N };
+      return { ...state, sign: payload.sign, result: '', n2: INITIAL_N, n1: parseBig(state.n1) };
     }
 
     case 'calculate': {
-      const n2 = state.sign ? state.n2 || state.n1 : null;
-      const result = calculateTwoNumbers(state.n1 || '0', n2, state.sign);
-      return { ...state, result, n2 };
+      const n2 = state.sign ? parseBig(state.n2) || parseBig(state.n1) : null;
+      const result = calculateTwoNumbers(state.result || state.n1 || '0', n2, state.sign);
+      return { ...state, result, n2, n1: parseBig(state.result || state.n1) };
     }
 
     case 'inverse': {
@@ -114,17 +105,15 @@ function calculatorReducer(state: CalcState, { type, payload }: AllActions): Cal
     }
 
     case 'clearEntry': {
-      if (state.sign) {
-        return { ...state, n2: INITIAL_N, result: '' };
-      }
-      return { ...state, n1: '0', result: '' };
+      const newN = state.sign ? { n2: INITIAL_N } : { n1: INITIAL_N };
+      return { ...state, ...newN, result: '' };
     }
 
     case 'backspace': {
-      if (state.sign) {
-        return { ...state, n2: formatNumberToDisplay(state.n2?.slice(0, -1) || null) };
-      }
-      return { ...state, n1: formatNumberToDisplay(state.n1?.slice(0, -1) || null) };
+      const newN = state.sign
+        ? { n2: state.n2?.slice(0, -1) || null }
+        : { n1: state.n1?.slice(0, -1) || null };
+      return { ...state, ...newN };
     }
 
     default:

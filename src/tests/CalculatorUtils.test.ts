@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { describe, expect, it } from 'vitest';
-import { calculateTwoNumbers, formatNumberToDisplay, parseNumber } from '../utils/calculator';
-import { DIVISION_BY_ZERO_ERROR } from '../context/CalculatorContext';
+import { DIVISION_BY_ZERO_ERROR, calculateTwoNumbers, numberToDisplay } from '../utils/calculator';
 
 describe('calculateTwoNumbers function', () => {
   it('Add two numbers Add', () => {
@@ -68,32 +67,18 @@ describe('calculateTwoNumbers function', () => {
   });
 });
 
-describe('parseNumber function', () => {
+describe('numberToDisplay function', () => {
   it('parse number', () => {
-    expect(parseNumber(1 / 3)).toBe('0.333333333333');
-    expect(parseNumber('0.3333333333333333')).toBe('0.333333333333');
-    expect(parseNumber('0.5555555555555555')).toBe('0.555555555556');
-    expect(parseNumber('0.9999999999999999')).toBe('1');
-    expect(parseNumber('0.1111111111111111')).toBe('0.111111111111');
-    expect(parseNumber('00001')).toBe('1');
-    expect(parseNumber('0000.1')).toBe('0.1');
-    expect(parseNumber('0000.10000')).toBe('0.1');
-    expect(parseNumber('1.')).toBe('1');
-    expect(parseNumber('1.0')).toBe('1');
-  });
-});
-
-describe('formatNumber function', () => {
-  it('format number', () => {
-    expect(formatNumberToDisplay(String(1 / 3))).toBe('0.3333333333333333');
-    expect(formatNumberToDisplay('0.3333333333333333')).toBe('0.3333333333333333');
-    expect(formatNumberToDisplay('0.5555555555555555')).toBe('0.5555555555555555');
-    expect(formatNumberToDisplay('0.9999999999999999')).toBe('0.9999999999999999');
-    expect(formatNumberToDisplay('0.1111111111111111')).toBe('0.1111111111111111');
-    expect(formatNumberToDisplay('00001')).toBe('1');
-    expect(formatNumberToDisplay('0000.1')).toBe('0000.1');
-    expect(formatNumberToDisplay('0000.10000')).toBe('0000.10000');
-    expect(formatNumberToDisplay('1.')).toBe('1.');
-    expect(formatNumberToDisplay('1.0')).toBe('1.0');
+    expect(numberToDisplay(null)).toBe('0');
+    expect(numberToDisplay(String(1 / 3))).toBe('0.3333333333333333');
+    expect(numberToDisplay('0.0000000000000001')).toBe('0.0000000000000001');
+    expect(numberToDisplay('0.1111111111111111')).toBe('0.1111111111111111');
+    expect(numberToDisplay('0.3333333333333333')).toBe('0.3333333333333333');
+    expect(numberToDisplay('0.5555555555555555')).toBe('0.5555555555555555');
+    expect(numberToDisplay('0.9999999999999999')).toBe('0.9999999999999999');
+    expect(numberToDisplay('1')).toBe('1');
+    expect(numberToDisplay('0.1')).toBe('0.1');
+    expect(numberToDisplay('1.0')).toBe('1.0');
+    expect(numberToDisplay('1.')).toBe('1.');
   });
 });

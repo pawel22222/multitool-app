@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 interface OutsideClickHandlerProps {
   onOutsideClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const OutsideMouseDownHandler = ({ onOutsideClick, children }: OutsideClickHandlerProps) => {

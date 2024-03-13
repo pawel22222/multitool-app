@@ -3,14 +3,17 @@
   height: 160px;
   margin-bottom: 4px;
   display: flex;
+  width: 100%;
 
   .helper {
-    width: 50%;
+    position: absolute;
+    top: 60px;
+    left: 0;
   }
   .preview {
     display: flex;
     flex-flow: column;
-    width: 50%;
+    width: 100%;
     justify-content: flex-end;
     align-items: flex-end;
   }
@@ -19,9 +22,13 @@
     font-size: 14px;
     color: gray;
     user-select: none;
+    text-wrap: nowrap;
   }
 
   .large {
+    width: 100%;
+    text-align: end;
+    white-space: nowrap;
     font-size: 40px;
   }
 }

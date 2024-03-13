@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 import './style.scss';
 import { WindowApp } from '../../App';
 import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
@@ -33,7 +33,7 @@ function WindowWrapper({
     if (mouseDown) {
       setPosition({
         x: e.pageX - (windowWrapper.current.offsetWidth || 0) / 3,
-        y: e.pageY - 120,
+        y: e.pageY - 140,
       });
     }
   };
@@ -51,11 +51,9 @@ function WindowWrapper({
           style={{
             top: isFullscreen ? 0 : `${position.y}px`,
             left: isFullscreen ? 0 : `${position.x}px`,
+            width: isFullscreen ? '100%' : windowData.minSize.width,
+            height: isFullscreen ? '100%' : windowData.minSize.height,
             zIndex,
-            minWidth: windowData.minSize.width,
-            minHeight: windowData.minSize.height,
-            width: windowData.minSize.width,
-            height: windowData.minSize.height,
           }}
           role='presentation'
           onMouseDown={(e) => {
