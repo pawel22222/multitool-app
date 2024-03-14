@@ -40,6 +40,7 @@ function CalculatorKeyboard({ keyboard, isFocused }: Props) {
           className={key.className}
           rowPosition={key.position[0]}
           columnPosition={key.position[1]}
+          testid={key.testid}
           onClick={key.onClick}
         />
       ))}

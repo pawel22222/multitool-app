@@ -53,5 +53,6 @@ export interface KeyData {
   key: string;
   className: string;
   position: [row: number, column: number];
+  testid: string;
   onClick: () => void;
 }

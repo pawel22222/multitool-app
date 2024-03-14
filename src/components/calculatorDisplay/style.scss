@@ -3,25 +3,40 @@
   height: 160px;
   margin-bottom: 4px;
   display: flex;
+  width: 100%;
 
   .helper {
-    width: 50%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+
+    div {
+      font-size: 14px;
+      color: gray;
+      user-select: none;
+      text-wrap: nowrap;
+    }
   }
-  .preview {
+
+  .display {
     display: flex;
     flex-flow: column;
-    width: 50%;
+    width: 100%;
     justify-content: flex-end;
     align-items: flex-end;
-  }
 
-  .small {
-    font-size: 14px;
-    color: gray;
-    user-select: none;
-  }
+    .second-display {
+      font-size: 14px;
+      color: gray;
+      user-select: none;
+      text-wrap: nowrap;
+    }
 
-  .large {
-    font-size: 40px;
+    .main-display {
+      width: 100%;
+      text-align: end;
+      white-space: nowrap;
+      font-size: 40px;
+    }
   }
 }

@@ -94,6 +94,10 @@ function App() {
       return prev.map((app) => {
         if (app.id === id) {
           app.isMinimalize = isMinimalize;
+
+          if (id === focusedWindowId) {
+            setFocusedWindowId(null);
+          }
         }
         return app;
       });
