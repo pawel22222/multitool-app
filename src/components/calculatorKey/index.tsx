@@ -13,6 +13,7 @@ function CalculatorKey({ className, rowPosition, columnPosition, onClick, conten
     <button
       className={`calculator-key ${className} order-${rowPosition}-${columnPosition}`}
       onClick={onClick}
+      tabIndex={Number(`${rowPosition}${columnPosition}`)}
     >
       {content}
     </button>
