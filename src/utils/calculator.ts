@@ -58,9 +58,21 @@ export function addCharToNumber(n: string | null, char: Chars) {
 
 export function numberToDisplay(n: string | null) {
   if (!n) return '0';
-  if (n.includes(DECIMAL_POINT)) {
-    const [decimal, float] = n.split(DECIMAL_POINT);
-    return `${Number(decimal).toLocaleString('pl')}.${float}`;
-  }
-  return Number(n).toLocaleString('pl');
+  const [decimal, float] = n.split(DECIMAL_POINT);
+  let counter = 0;
+
+  const newDecimal = decimal
+    .split('')
+    .reduceRight((acc: string[], char) => {
+      counter++;
+      if (counter === 3) {
+        counter = 0;
+        return [' ', char, ...acc];
+      }
+      return [char, ...acc];
+    }, [])
+    .join('')
+    .trim();
+
+  return n.includes(DECIMAL_POINT) ? `${newDecimal}.${float}` : newDecimal;
 }

@@ -180,6 +180,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [5, 1],
         onClick: () => actions.enterChar('1'),
+        testid: 'key-1',
       },
       {
         content: '2',
@@ -187,6 +188,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [5, 2],
         onClick: () => actions.enterChar('2'),
+        testid: 'key-2',
       },
       {
         content: '3',
@@ -194,6 +196,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [5, 3],
         onClick: () => actions.enterChar('3'),
+        testid: 'key-3',
       },
       {
         content: '4',
@@ -201,6 +204,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [4, 1],
         onClick: () => actions.enterChar('4'),
+        testid: 'key-4',
       },
       {
         content: '5',
@@ -208,6 +212,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [4, 2],
         onClick: () => actions.enterChar('5'),
+        testid: 'key-5',
       },
       {
         content: '6',
@@ -215,6 +220,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [4, 3],
         onClick: () => actions.enterChar('6'),
+        testid: 'key-6',
       },
       {
         content: '7',
@@ -222,6 +228,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [3, 1],
         onClick: () => actions.enterChar('7'),
+        testid: 'key-7',
       },
       {
         content: '8',
@@ -229,6 +236,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [3, 2],
         onClick: () => actions.enterChar('8'),
+        testid: 'key-8',
       },
       {
         content: '9',
@@ -236,6 +244,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [3, 3],
         onClick: () => actions.enterChar('9'),
+        testid: 'key-9',
       },
       {
         content: '0',
@@ -243,6 +252,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [6, 2],
         onClick: () => actions.enterChar('0'),
+        testid: 'key-0',
       },
       {
         content: ',',
@@ -250,6 +260,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [6, 3],
         onClick: () => actions.enterChar(DECIMAL_POINT),
+        testid: 'key-dot',
       },
       {
         content: 'C',
@@ -257,6 +268,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [1, 3],
         onClick: () => actions.clear(),
+        testid: 'key-clear',
       },
       {
         content: 'CE',
@@ -264,6 +276,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [1, 2],
         onClick: () => actions.clearEntry(),
+        testid: 'key-clear-entry',
       },
       {
         content: '⌫',
@@ -271,6 +284,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [1, 4],
         onClick: () => actions.backspace(),
+        testid: 'key-backspace',
       },
       {
         content: '+',
@@ -278,6 +292,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [5, 4],
         onClick: () => actions.useSign('+'),
+        testid: 'key-plus',
       },
       {
         content: '-',
@@ -285,6 +300,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [4, 4],
         onClick: () => actions.useSign('-'),
+        testid: 'key-minus',
       },
       {
         content: 'x',
@@ -292,6 +308,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [3, 4],
         onClick: () => actions.useSign('*'),
+        testid: 'key-multiply',
       },
       {
         content: '÷',
@@ -299,6 +316,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [2, 4],
         onClick: () => actions.useSign('/'),
+        testid: 'key-division',
       },
       {
         content: '1/x',
@@ -306,6 +324,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [2, 1],
         onClick: () => actions.inverse(),
+        testid: 'key-inverse',
       },
       {
         content: '±',
@@ -313,6 +332,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-light',
         position: [6, 1],
         onClick: () => actions.opposite(),
+        testid: 'key-opposite',
       },
       {
         content: 'x²',
@@ -320,6 +340,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [2, 2],
         onClick: () => actions.power(),
+        testid: 'key-power',
       },
       {
         content: '²√x',
@@ -327,6 +348,7 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [2, 3],
         onClick: () => actions.root(),
+        testid: 'key-root',
       },
       {
         content: '%',
@@ -334,13 +356,15 @@ export const CalculatorContextProvider = ({ children }: { children: ReactNode })
         className: 'key-dark',
         position: [1, 1],
         onClick: () => actions.percent(),
+        testid: 'key-percent',
       },
       {
         content: '=',
         key: 'Enter',
         className: 'key-equals',
-        position: [4, 6],
+        position: [6, 4],
         onClick: () => actions.calculate(),
+        testid: 'key-calculate',
       },
     ],
     [actions],

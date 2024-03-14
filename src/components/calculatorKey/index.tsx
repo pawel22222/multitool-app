@@ -6,14 +6,23 @@ interface Props {
   columnPosition: number;
   onClick: () => void;
   content: string;
+  testid: string;
 }
 
-function CalculatorKey({ className, rowPosition, columnPosition, onClick, content }: Props) {
+function CalculatorKey({
+  className,
+  rowPosition,
+  columnPosition,
+  onClick,
+  content,
+  testid,
+}: Props) {
   return (
     <button
       className={`calculator-key ${className} order-${rowPosition}-${columnPosition}`}
       onClick={onClick}
       tabIndex={Number(`${rowPosition}${columnPosition}`)}
+      data-testid={testid}
     >
       {content}
     </button>

@@ -53,6 +53,8 @@ function WindowWrapper({
             left: isFullscreen ? 0 : `${position.x}px`,
             width: isFullscreen ? '100%' : windowData.minSize.width,
             height: isFullscreen ? '100%' : windowData.minSize.height,
+            minWidth: windowData.minSize.width,
+            minHeight: windowData.minSize.height,
             zIndex,
           }}
           role='presentation'
