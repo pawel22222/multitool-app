@@ -9,26 +9,34 @@
     position: absolute;
     top: 60px;
     left: 0;
+
+    div {
+      font-size: 14px;
+      color: gray;
+      user-select: none;
+      text-wrap: nowrap;
+    }
   }
-  .preview {
+
+  .display {
     display: flex;
     flex-flow: column;
     width: 100%;
     justify-content: flex-end;
     align-items: flex-end;
-  }
 
-  .small {
-    font-size: 14px;
-    color: gray;
-    user-select: none;
-    text-wrap: nowrap;
-  }
+    .second-display {
+      font-size: 14px;
+      color: gray;
+      user-select: none;
+      text-wrap: nowrap;
+    }
 
-  .large {
-    width: 100%;
-    text-align: end;
-    white-space: nowrap;
-    font-size: 40px;
+    .main-display {
+      width: 100%;
+      text-align: end;
+      white-space: nowrap;
+      font-size: 40px;
+    }
   }
 }

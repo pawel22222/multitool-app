@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { Signs } from '../../types/calculator';
 import './style.scss';
 import { numberToDisplay } from '../../utils/calculator';
@@ -16,54 +17,45 @@ function CalculatorDisplay(props: Props) {
   const n2Display = numberToDisplay(n2);
   const resultDisplay = numberToDisplay(result);
 
-  const display = () => {
+  const [mainDisplay, secondDisplay] = getDisplay();
+
+  function getDisplay(): [ReactNode, ReactNode] {
     if (!sign && !n2 && !result) {
-      return <div className='large'>{n1Display || '0'}</div>;
+      return [n1Display || '0', null];
     }
     if (!sign && !n2) {
-      return (
-        <>
-          <div className='small'>{n1Display} =</div>
-          <div className='large'>{n1Display}</div>
-        </>
-      );
+      return [n1Display, n1Display];
     }
     if (sign && !n2 && !result) {
-      return (
-        <>
-          <div className='small'>{`${n1Display} ${sign}`}</div>
-          <div className='large'>{n1Display}</div>
-        </>
-      );
+      return [n1Display, `${n1Display} ${sign}`];
     }
     if (sign && n2 && !result) {
-      return (
-        <>
-          <div className='small'>{`${n1Display} ${sign} ${n2Display}`}</div>
-          <div className='large'>{n2Display}</div>
-        </>
-      );
+      return [n2Display, `${n1Display} ${sign} ${n2Display}`];
     }
     if (result) {
-      return (
-        <>
-          <div className='small'>{`${n1Display} ${sign} ${n2Display} =`}</div>
-          <div className='large'>{resultDisplay}</div>
-        </>
-      );
+      return [resultDisplay, `${n1Display} ${sign} ${n2Display} =`];
     }
-    return <div className='large'>Brak danych</div>;
-  };
+    return ['Brak danych', null];
+  }
 
   return (
     <div className='calculator-display'>
       <div className='helper'>
-        <div className='small'>n1: {n1}</div>
-        <div className='small'>sign: {sign}</div>
-        <div className='small'>n2: {n2}</div>
-        <div className='small'>result: {result}</div>
+        <div>n1: {n1}</div>
+        <div>sign: {sign}</div>
+        <div>n2: {n2}</div>
+        <div>result: {result}</div>
       </div>
-      <div className='preview'>{display()}</div>
+
+      <div className='display'>
+        <div className='second-display' data-testid='second-display'>
+          {secondDisplay}
+        </div>
+
+        <div className='main-display' data-testid='main-display'>
+          {mainDisplay}
+        </div>
+      </div>
     </div>
   );
 }
