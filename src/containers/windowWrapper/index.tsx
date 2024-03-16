@@ -1,31 +1,21 @@
 import { type ReactNode, useRef, useState } from 'react';
 import './style.scss';
-import { WindowApp } from '../../App';
+import { WindowApp } from '../../types/windowApp';
 import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
+import { useApps } from '../../context/AppsContext';
 
 interface Props {
   children: ReactNode;
-  windowData: WindowApp;
+  windowApp: WindowApp;
   isFocused: boolean;
-  closeApp: (id: string) => void;
-  setIsMinimalize: (id: string, isMinimalize: boolean) => void;
-  setIsFullscreen: (id: string, isFullscreen: boolean) => void;
-  handleSetFocusedWindowId: (id: string | null) => void;
 }
 
-function WindowWrapper({
-  children,
-  windowData,
-  closeApp,
-  setIsMinimalize,
-  setIsFullscreen,
-  isFocused,
-  handleSetFocusedWindowId,
-}: Props) {
+function WindowWrapper({ children, windowApp, isFocused }: Props) {
+  const { actions } = useApps();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mouseDown, setMouseDown] = useState(false);
   const windowWrapper = useRef<HTMLDivElement>(null);
-  const { id, isMinimalize, isFullscreen, zIndex, iconSrc, displayName } = windowData;
+  const { id, isMinimalize, isFullscreen, zIndex, iconSrc, displayName, minSize } = windowApp;
 
   const onMoveWindow = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
@@ -40,7 +30,7 @@ function WindowWrapper({
 
   return (
     !isMinimalize && (
-      <OutsideMouseDownHandler onOutsideClick={() => handleSetFocusedWindowId(null)}>
+      <OutsideMouseDownHandler onOutsideClick={() => actions.handleSetFocusedWindowId(null)}>
         <div
           ref={windowWrapper}
           className={`
@@ -51,16 +41,16 @@ function WindowWrapper({
           style={{
             top: isFullscreen ? 0 : `${position.y}px`,
             left: isFullscreen ? 0 : `${position.x}px`,
-            width: isFullscreen ? '100%' : windowData.minSize.width,
-            height: isFullscreen ? '100%' : windowData.minSize.height,
-            minWidth: windowData.minSize.width,
-            minHeight: windowData.minSize.height,
+            width: isFullscreen ? '100%' : minSize.width,
+            height: isFullscreen ? '100%' : minSize.height,
+            minWidth: minSize.width,
+            minHeight: minSize.height,
             zIndex,
           }}
           role='presentation'
           onMouseDown={(e) => {
             e.stopPropagation();
-            handleSetFocusedWindowId(id);
+            actions.handleSetFocusedWindowId(id);
           }}
         >
           <header
@@ -92,20 +82,20 @@ function WindowWrapper({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsMinimalize(id, true);
+                  actions.setIsMinimalize(id, true);
                 }}
                 className='window-nav-button'
               >
                 _
               </button>
               <button
-                onClick={() => setIsFullscreen(id, !isFullscreen)}
+                onClick={() => actions.setIsFullscreen(id, !isFullscreen)}
                 className='window-nav-button'
               >
                 []
               </button>
               <button
-                onClick={() => closeApp(id)}
+                onClick={() => actions.closeApp(id)}
                 className='window-nav-button window-nav-button--close'
               >
                 x
