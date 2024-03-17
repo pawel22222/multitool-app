@@ -37,6 +37,7 @@
     "react/jsx-one-expression-per-line": "off",
     "react/button-has-type": "off",
     "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/no-autofocus": 0,
     "import/extensions": "off",
     "no-case-declarations": "off",
     "no-nested-ternary": "off",

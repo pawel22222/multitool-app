@@ -7,6 +7,8 @@ import Nav from './containers/nav';
 import MinimalizedApp from './components/minimalizedApp';
 import { WindowApp } from './types/windowApp';
 import { useApps } from './context/AppsContext';
+import { TasksContextProvider } from './context/TodoListContext';
+import Tasks from './components/tasks';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();
@@ -22,6 +24,14 @@ function App() {
               <Calculator isFocused={focusedWindowId === id} />
             </WindowWrapper>
           </CalculatorContextProvider>
+        );
+      case 'tasks':
+        return (
+          <TasksContextProvider key={id}>
+            <WindowWrapper windowApp={app} isFocused={focusedWindowId === id}>
+              <Tasks />
+            </WindowWrapper>
+          </TasksContextProvider>
         );
       case 'other-app':
         return (
@@ -54,7 +64,11 @@ function App() {
 
         <Nav>
           <button onClick={() => actions.openApp('calculator')}>
-            <img src='./calc-icon.png' alt='calculator app' width='25px' height='25px' />
+            <img src='./calc-icon.png' alt='calculator icon' width='25px' height='25px' />
+          </button>
+
+          <button onClick={() => actions.openApp('tasks')}>
+            <img src='./tasks-icon.png' alt='tasks icon' width='25px' height='25px' />
           </button>
 
           <button onClick={() => actions.openApp('other-app')}>

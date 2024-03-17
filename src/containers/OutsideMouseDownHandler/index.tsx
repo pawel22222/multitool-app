@@ -3,9 +3,14 @@ import { useEffect, useRef, type ReactNode } from 'react';
 interface OutsideClickHandlerProps {
   onOutsideClick: () => void;
   children: ReactNode;
+  capture?: boolean;
 }
 
-const OutsideMouseDownHandler = ({ onOutsideClick, children }: OutsideClickHandlerProps) => {
+const OutsideMouseDownHandler = ({
+  onOutsideClick,
+  capture = false,
+  children,
+}: OutsideClickHandlerProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,12 +20,12 @@ const OutsideMouseDownHandler = ({ onOutsideClick, children }: OutsideClickHandl
       }
     };
 
-    window.addEventListener('mousedown', handleClick);
+    window.addEventListener('mousedown', handleClick, { capture });
 
     return () => {
       window.removeEventListener('mousedown', handleClick);
     };
-  }, [onOutsideClick]);
+  }, [capture, onOutsideClick]);
 
   return <div ref={wrapperRef}>{children}</div>;
 };
