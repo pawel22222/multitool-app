@@ -43,8 +43,8 @@ function WindowWrapper({ children, windowApp, isFocused }: Props) {
             left: isFullscreen ? 0 : `${position.x}px`,
             width: isFullscreen ? '100%' : minSize.width,
             height: isFullscreen ? '100%' : minSize.height,
-            minWidth: minSize.width,
-            minHeight: minSize.height,
+            minWidth: isFullscreen ? '0' : minSize.width,
+            minHeight: isFullscreen ? '0' : minSize.height,
             zIndex,
           }}
           role='presentation'

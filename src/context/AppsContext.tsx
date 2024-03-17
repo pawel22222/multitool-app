@@ -61,6 +61,12 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
               displayName: 'Calculator',
               minSize: { width: '420px', height: '600px' },
             };
+          case 'tasks':
+            return {
+              iconSrc: './tasks-icon.png',
+              displayName: 'Tasks',
+              minSize: { width: '600px', height: '420px' },
+            };
           case 'other-app':
             return {
               iconSrc: './vite.svg',
