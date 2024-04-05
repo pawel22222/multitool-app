@@ -37,6 +37,9 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeTodoList = (listId: string) => {
+    if (selectedListId === listId) {
+      setSelectedListId(lists[0]?.id || null);
+    }
     setLists((prev) => prev.filter(({ id }) => id !== listId));
   };
 
@@ -124,8 +127,8 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
     return selectedList;
   }, [lists, selectedListId]);
 
-  const actions = useMemo(
-    () => ({
+  const actions = useMemo(() => {
+    return {
       addTodoList,
       removeTodoList,
       addTodo,
@@ -135,9 +138,8 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
       setSelectedListId,
       getSelectedList,
       renameTodo,
-    }),
-    [getSelectedList],
-  );
+    } as TasksActions;
+  }, [getSelectedList]);
   const value = useMemo(
     () => ({ lists, selectedListId, actions }),
     [actions, lists, selectedListId],

@@ -4,11 +4,12 @@ import './style.scss';
 type Props = {
   children: ReactNode;
   testId?: string;
+  className?: string;
 };
 
-export default function Nav({ children, testId }: Props) {
+export default function Nav({ children, testId, className }: Props) {
   return (
-    <div className='nav-container' data-testid={testId}>
+    <div className={`nav-container ${className || ''}`} data-testid={testId}>
       {children}
     </div>
   );

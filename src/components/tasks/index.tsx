@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { useTasks } from '../../context/TodoListContext';
 import Nav from '../../containers/nav';
 import OutsideMouseDownHandler from '../../containers/OutsideMouseDownHandler';
 import Todo from '../todo';
+import NavTabs from '../NavTabs';
 
 export default function Tasks() {
-  const { lists, actions } = useTasks();
+  const { lists, actions, selectedListId } = useTasks();
+
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const [newListName, setNewListName] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -30,22 +33,25 @@ export default function Tasks() {
     }
   }
 
+  const scrollToItem = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  function handleSetSelectedList(id: string) {
+    actions.setSelectedListId(id);
+  }
+
+  useEffect(() => {
+    if (selectedListId) scrollToItem(selectedListId);
+  }, [selectedListId, carouselRef.current?.offsetWidth]);
+
   return (
     <div className='tasks-container'>
-      <Nav>
-        <div className='tasks-lists' data-testid='todo-lists'>
-          {lists.map(({ id, name }) => (
-            <button
-              className='tasks-list'
-              key={id}
-              onClick={() => {
-                actions.setSelectedListId(id);
-              }}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
+      <Nav className='tasks-nav'>
+        <NavTabs tabs={lists} activeTabId={selectedList?.id} selectTab={handleSetSelectedList} />
 
         {showForm ? (
           <OutsideMouseDownHandler
@@ -80,43 +86,42 @@ export default function Tasks() {
         )}
       </Nav>
 
-      {selectedList ? (
-        <>
-          <div className='tasks-todos'>
-            <div data-testid='todo-list'>
-              {selectedList.todos.map((todo) => (
-                <Todo key={todo.id} listId={selectedList.id} todo={todo} />
-              ))}
-            </div>
+      <div className='carousel' ref={carouselRef}>
+        {lists.map(({ id, todos }) => (
+          <div className='list-container' id={id}>
+            {todos.map((todo) => (
+              <Todo key={todo.id} listId={id} todo={todo} />
+            ))}
           </div>
+        ))}
+      </div>
 
-          <div className='add-todo-form'>
-            <input
-              placeholder='New task'
-              data-testid='add-todo-input'
-              autoFocus
-              type='text'
-              value={newTodoName}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleAddTodo(newTodoName, selectedList.id);
-                  setNewTodoName('');
-                }
-                if (e.key === 'Escape') {
-                  setNewTodoName('');
-                }
-              }}
-              onChange={(e) => setNewTodoName(e.target.value)}
-            />
+      {selectedList && (
+        <div className='add-todo-form'>
+          <input
+            className='add-todo-input'
+            placeholder='New task'
+            data-testid='add-todo-input'
+            autoFocus
+            type='text'
+            value={newTodoName}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddTodo(newTodoName, selectedList.id);
+                setNewTodoName('');
+              }
+              if (e.key === 'Escape') {
+                setNewTodoName('');
+              }
+            }}
+            onChange={(e) => setNewTodoName(e.target.value)}
+          />
 
-            <div>
-              <button onClick={() => actions.clearChecked(selectedList.id)}>Clear checked</button>
-              <button onClick={() => actions.removeTodoList(selectedList.id)}>Remove list</button>
-            </div>
+          <div>
+            <button onClick={() => actions.clearChecked(selectedList.id)}>Clear checked</button>
+            <button onClick={() => actions.removeTodoList(selectedList.id)}>Remove list</button>
           </div>
-        </>
-      ) : (
-        <div>Select list</div>
+        </div>
       )}
     </div>
   );

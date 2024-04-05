@@ -26,11 +26,6 @@ function App() {
       icon: './tasks-icon.png',
       alt: 'tasks icon',
     },
-    {
-      onClick: () => actions.openApp('other-app'),
-      icon: './vite.svg',
-      alt: 'other app',
-    },
   ];
 
   function renderApp(app: WindowApp) {
@@ -52,12 +47,6 @@ function App() {
               <Tasks />
             </WindowWrapper>
           </TasksContextProvider>
-        );
-      case 'other-app':
-        return (
-          <WindowWrapper key={id} windowApp={app} isFocused={focusedWindowId === id}>
-            <div>other app</div>
-          </WindowWrapper>
         );
       default:
         const never: never = type;
