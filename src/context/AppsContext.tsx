@@ -106,11 +106,13 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
 
   const openApp = useCallback(
     (type: WindowAppTypes) => {
-      const newApp = createApp(type);
-      setOpenedApps((prev) => [...prev, newApp]);
-      handleSetFocusedWindowId(newApp.id);
+      if (openedApps.length < 20) {
+        const newApp = createApp(type);
+        setOpenedApps((prev) => [...prev, newApp]);
+        handleSetFocusedWindowId(newApp.id);
+      }
     },
-    [createApp, handleSetFocusedWindowId],
+    [createApp, handleSetFocusedWindowId, openedApps.length],
   );
 
   function closeApp(id: string) {

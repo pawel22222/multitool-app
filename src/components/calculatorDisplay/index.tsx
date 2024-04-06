@@ -40,12 +40,12 @@ function CalculatorDisplay(props: Props) {
 
   return (
     <div className='calculator-display'>
-      <div className='helper'>
+      {/* <div className='helper'>
         <div>n1: {n1}</div>
         <div>sign: {sign}</div>
         <div>n2: {n2}</div>
         <div>result: {result}</div>
-      </div>
+      </div> */}
 
       <div className='display'>
         <div className='second-display' data-testid='second-display'>

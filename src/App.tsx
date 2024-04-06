@@ -9,9 +9,29 @@ import { WindowApp } from './types/windowApp';
 import { useApps } from './context/AppsContext';
 import { TasksContextProvider } from './context/TodoListContext';
 import Tasks from './components/tasks';
+import AppLauncher from './components/appLauncher';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();
+  const disabledLauncher = !(openedApps.length < 20);
+
+  const appLauncher = [
+    {
+      onClick: () => actions.openApp('calculator'),
+      icon: './calc-icon.png',
+      alt: 'calculator icon',
+    },
+    {
+      onClick: () => actions.openApp('tasks'),
+      icon: './tasks-icon.png',
+      alt: 'tasks icon',
+    },
+    {
+      onClick: () => actions.openApp('other-app'),
+      icon: './vite.svg',
+      alt: 'other app',
+    },
+  ];
 
   function renderApp(app: WindowApp) {
     const { id, type } = app;
@@ -63,17 +83,9 @@ function App() {
         <h1>Apps</h1>
 
         <Nav>
-          <button onClick={() => actions.openApp('calculator')}>
-            <img src='./calc-icon.png' alt='calculator icon' width='25px' height='25px' />
-          </button>
-
-          <button onClick={() => actions.openApp('tasks')}>
-            <img src='./tasks-icon.png' alt='tasks icon' width='25px' height='25px' />
-          </button>
-
-          <button onClick={() => actions.openApp('other-app')}>
-            <img src='./vite.svg' alt='other app' width='25px' height='25px' />
-          </button>
+          {appLauncher.map(({ onClick, icon, alt }) => (
+            <AppLauncher onClick={onClick} icon={icon} alt={alt} disabled={disabledLauncher} />
+          ))}
         </Nav>
       </div>
 

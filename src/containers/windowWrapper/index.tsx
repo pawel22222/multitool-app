@@ -1,4 +1,5 @@
 import { type ReactNode, useRef, useState } from 'react';
+import Draggable from 'react-draggable';
 import './style.scss';
 import { WindowApp } from '../../types/windowApp';
 import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
@@ -11,101 +12,110 @@ interface Props {
 }
 
 function WindowWrapper({ children, windowApp, isFocused }: Props) {
-  const { actions } = useApps();
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [mouseDown, setMouseDown] = useState(false);
-  const windowWrapper = useRef<HTMLDivElement>(null);
   const { id, isMinimalize, isFullscreen, zIndex, iconSrc, displayName, minSize } = windowApp;
+  const { actions } = useApps();
+  const [position, setPosition] = useState(calcDefaultPosition(zIndex));
+  const windowWrapper = useRef<HTMLDivElement>(null);
 
-  const onMoveWindow = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-    if (!windowWrapper.current) return;
-    if (mouseDown) {
-      setPosition({
-        x: e.pageX - (windowWrapper.current.offsetWidth || 0) / 3,
-        y: e.pageY - 140,
-      });
-    }
-  };
+  function calcDefaultPosition(zIndex: number, counter = 5, spaceX = 90, spaceY = 60) {
+    const y =
+      zIndex % (2 * counter) < counter
+        ? zIndex % (2 * counter)
+        : ((zIndex % counter) - counter) * -1;
+    const x =
+      zIndex % (4 * counter) < counter
+        ? zIndex % counter
+        : zIndex % (4 * counter) < 2 * counter
+        ? counter
+        : zIndex % (4 * counter) < 3 * counter
+        ? ((zIndex % counter) - counter) * -1
+        : 0;
+
+    return { x: (x + 1) * spaceX, y: (y + 1) * spaceY };
+  }
 
   return (
     !isMinimalize && (
-      <OutsideMouseDownHandler onOutsideClick={() => actions.handleSetFocusedWindowId(null)}>
+      <Draggable
+        defaultClassName='window-draggable'
+        position={position}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          actions.handleSetFocusedWindowId(id);
+        }}
+        onDrag={(e, ui) => {
+          e.stopPropagation();
+          const { x, y } = ui;
+
+          setPosition({ x, y });
+        }}
+        handle='.window-header'
+        cancel='.window-header-nav'
+        bounds='.pulpit-container'
+        nodeRef={windowWrapper}
+      >
         <div
           ref={windowWrapper}
-          className={`
-          window-wrapper 
-          ${isFullscreen ? 'fullscreen' : ''} 
-          ${isFocused ? 'focused' : ''}
-        `}
+          className={`window-wrapper ${isFullscreen ? 'fullscreen' : ''} ${
+            isFocused ? 'focused' : ''
+          }
+          `}
           style={{
-            top: isFullscreen ? 0 : `${position.y}px`,
-            left: isFullscreen ? 0 : `${position.x}px`,
             width: isFullscreen ? '100%' : minSize.width,
             height: isFullscreen ? '100%' : minSize.height,
             minWidth: isFullscreen ? '0' : minSize.width,
             minHeight: isFullscreen ? '0' : minSize.height,
             zIndex,
           }}
-          role='presentation'
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            actions.handleSetFocusedWindowId(id);
-          }}
         >
-          <header
-            role='presentation'
-            className='window-header'
-            onMouseDown={() => setMouseDown(true)}
-            onMouseUp={() => setMouseDown(false)}
-            onMouseMove={onMoveWindow}
+          <OutsideMouseDownHandler
+            className='window-helper-wrapper'
+            onOutsideClick={() => actions.handleSetFocusedWindowId(null)}
           >
-            <div className='title-container'>
-              <img
-                className='icon'
-                src={iconSrc || './vite.svg'}
-                alt={`${displayName} icon`}
-                width='15px'
-                height='15px'
-              />
+            <header className='window-header'>
+              <div className='title-container'>
+                <img
+                  className='icon'
+                  src={iconSrc || './vite.svg'}
+                  alt={`${displayName} icon`}
+                  width='15px'
+                  height='15px'
+                />
 
-              <span className='title'>{displayName}</span>
-            </div>
+                <span className='title'>{displayName}</span>
+              </div>
 
-            <nav
-              role='presentation'
-              className='window-header-nav'
-              onMouseDown={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  actions.setIsMinimalize(id, true);
-                }}
-                className='window-nav-button'
-              >
-                _
-              </button>
-              <button
-                onClick={() => actions.setIsFullscreen(id, !isFullscreen)}
-                className='window-nav-button'
-              >
-                []
-              </button>
-              <button
-                onClick={() => actions.closeApp(id)}
-                className='window-nav-button window-nav-button--close'
-              >
-                x
-              </button>
-            </nav>
-          </header>
+              <nav className='window-header-nav'>
+                <button
+                  className='window-nav-button'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    actions.setIsMinimalize(id, true);
+                  }}
+                >
+                  _
+                </button>
+                <button
+                  onClick={() => {
+                    actions.setIsFullscreen(id, !isFullscreen);
+                  }}
+                  className='window-nav-button'
+                >
+                  []
+                </button>
+                <button
+                  onClick={() => actions.closeApp(id)}
+                  className='window-nav-button window-nav-button--close'
+                >
+                  x
+                </button>
+              </nav>
+            </header>
 
-          <main className='window-main'>{children}</main>
+            <main className='window-main'>{children}</main>
+          </OutsideMouseDownHandler>
         </div>
-      </OutsideMouseDownHandler>
+      </Draggable>
     )
   );
 }

@@ -4,11 +4,13 @@ interface OutsideClickHandlerProps {
   onOutsideClick: () => void;
   children: ReactNode;
   capture?: boolean;
+  className?: string;
 }
 
 const OutsideMouseDownHandler = ({
   onOutsideClick,
   capture = false,
+  className = '',
   children,
 }: OutsideClickHandlerProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -27,7 +29,11 @@ const OutsideMouseDownHandler = ({
     };
   }, [capture, onOutsideClick]);
 
-  return <div ref={wrapperRef}>{children}</div>;
+  return (
+    <div ref={wrapperRef} className={className}>
+      {children}
+    </div>
+  );
 };
 
 export default OutsideMouseDownHandler;
