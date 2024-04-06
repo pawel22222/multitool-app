@@ -1,4 +1,5 @@
 .window-wrapper {
+  position: absolute;
   border: 1px solid rgb(92, 92, 92);
   border-radius: 10px;
   background-color: $bg-primary;
@@ -8,7 +9,6 @@
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
   width: fit-content;
   height: fit-content;
-  position: absolute;
   resize: both;
   transition: $transition-background;
 
@@ -30,58 +30,63 @@
     }
   }
 
-  .window-header {
+  .window-helper-wrapper {
     display: flex;
-    justify-content: space-between;
-    user-select: none;
-    cursor: move;
-    height: 70px;
+    flex-flow: column;
+    flex-grow: 1;
 
-    .title-container {
+    .window-header {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-left: 10px;
-      flex-grow: 1;
+      justify-content: space-between;
+      user-select: none;
+      cursor: move;
 
-      // .icon {
-      // }
+      .title-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 10px;
+        flex-grow: 1;
 
-      .title {
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        // .icon {
+        // }
+
+        .title {
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
       }
-    }
 
-    .window-header-nav {
-      display: flex;
-      width: 150px;
+      .window-header-nav {
+        display: flex;
+        width: 150px;
 
-      .window-nav-button {
-        background-color: transparent;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        cursor: pointer;
-        color: gray;
+        .window-nav-button {
+          background-color: transparent;
+          border: none;
+          padding: 10px;
+          width: 100%;
+          cursor: pointer;
+          color: gray;
 
-        &.window-nav-button--close {
+          &.window-nav-button--close {
+            &:hover {
+              background-color: $bg-red;
+            }
+          }
+
           &:hover {
-            background-color: $bg-red;
+            background-color: $bg-gray-dark;
+            color: white;
           }
         }
-
-        &:hover {
-          background-color: $bg-gray-dark;
-          color: white;
-        }
       }
     }
-  }
 
-  .window-main {
-    width: 100%;
-    height: 100%;
+    .window-main {
+      width: 100%;
+      flex-grow: 1;
+    }
   }
 }
