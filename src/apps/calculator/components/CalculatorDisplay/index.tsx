@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
-import { Signs } from '../../types/calculator';
+import { Signs } from '../../types';
 import './style.scss';
-import { numberToDisplay } from '../../utils/calculator';
+import { numberToDisplay } from '../../utils';
 
 interface Props {
   n1: string | null;

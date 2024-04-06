@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { useTasks } from '../../context/TodoListContext';
-import Nav from '../../containers/nav';
+import Nav from '../../containers/Nav';
 import OutsideMouseDownHandler from '../../containers/OutsideMouseDownHandler';
-import Todo from '../todo';
-import NavTabs from '../NavTabs';
+import Todo from './components/Todo';
+import NavTabs from '../../components/NavTabs';
 
 export default function Tasks() {
   const { lists, actions, selectedListId } = useTasks();

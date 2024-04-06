@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { describe, expect, it } from 'vitest';
-import { DIVISION_BY_ZERO_ERROR, calculateTwoNumbers, numberToDisplay } from '../utils/calculator';
+import {
+  DIVISION_BY_ZERO_ERROR,
+  calculateTwoNumbers,
+  numberToDisplay,
+} from '../apps/calculator/utils';
 
 describe('calculateTwoNumbers function', () => {
   it('Add two numbers Add', () => {

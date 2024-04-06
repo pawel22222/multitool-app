@@ -1,7 +1,7 @@
 import './style.scss';
 import { useCalculatorContext } from '../../context/CalculatorContext';
-import CalculatorKeyboard from '../calculatorKeyboard';
-import CalculatorDisplay from '../calculatorDisplay';
+import CalculatorKeyboard from './components/CalculatorKeyboard';
+import CalculatorDisplay from './components/CalculatorDisplay';
 
 type Props = {
   isFocused: boolean;

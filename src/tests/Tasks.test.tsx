@@ -2,7 +2,7 @@
 import { render } from '@testing-library/react';
 import { beforeEach, describe, it } from 'vitest';
 import { TasksContextProvider } from '../context/TodoListContext';
-import Tasks from '../components/tasks';
+import Tasks from '../apps/tasks';
 
 describe('Render Tasks', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import './style.scss';
-import { Todo as TodoType } from '../../types/tasks';
-import { useTasks } from '../../context/TodoListContext';
-import EditableField from '../editableField';
+import { Todo as TodoType } from '../../types';
+import { useTasks } from '../../../../context/TodoListContext';
+import EditableField from '../../../../components/EditableField';
 
 type Props = { todo: TodoType; listId: string };
 
