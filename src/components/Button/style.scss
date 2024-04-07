@@ -1,0 +1,21 @@
+.button {
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  transition: $transition-background;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    width: 25px;
+  }
+}
+
+.window-wrapper.focused .button {
+  &:hover {
+    background-color: $bg-gray-light-active;
+  }
+}

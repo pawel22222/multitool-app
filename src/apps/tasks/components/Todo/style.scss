@@ -2,37 +2,50 @@
   display: flex;
   align-items: center;
   width: 100%;
+  // background-color: gray;
+  padding: 4px;
 
-  // .todo-checkbox {
-  //   appearance: none;
-  //   width: 30px;
-  //   height: 30px;
-  //   border: 1px solid #ccc;
-  //   border-radius: 4px;
-  //   outline: none;
-  //   cursor: pointer;
+  .todo-checkbox {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
 
-  //   &:checked {
-  //     background-color: #007bff;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
+    &:checked {
+      background-color: #007bff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  //     &::after {
-  //       content: '\2713';
-  //       font-size: 26px;
-  //       line-height: 26px;
-  //       color: white;
-  //     }
-  //   }
-  // }
+      &::after {
+        content: '\2713';
+        font-size: 20px;
+        line-height: 20px;
+        color: white;
+      }
+    }
+  }
   .todo-name {
   }
-  .todo-button {
+
+  .todo-buttons {
+    display: flex;
+    gap: 5px;
     margin-left: auto;
-    .edit {
-    }
-    .remove {
+
+    .button {
+      padding: 8px;
+      height: 40px;
+
+      &.edit {
+      }
+
+      &.remove {
+      }
     }
   }
 }

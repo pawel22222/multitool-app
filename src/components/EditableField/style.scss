@@ -1,0 +1,13 @@
+.editable-field {
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 16px;
+
+  &.edited {
+    &:focus {
+      border: none;
+      outline: 2px solid lightgray;
+    }
+  }
+}
