@@ -21,9 +21,7 @@
     background-color: $bg-primary-active;
     box-shadow: 0px 15px 30px 10px rgba(0, 0, 0, 0.5);
 
-    .window-header .window-header-nav .window-nav-button {
-      color: white;
-
+    .window-helper-wrapper .window-header .window-header-nav .window-nav-button {
       &:hover {
         background-color: $bg-gray-dark-active;
       }

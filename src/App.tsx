@@ -73,7 +73,13 @@ function App() {
 
         <Nav>
           {appLauncher.map(({ onClick, icon, alt }) => (
-            <AppLauncher onClick={onClick} icon={icon} alt={alt} disabled={disabledLauncher} />
+            <AppLauncher
+              key={icon}
+              onClick={onClick}
+              icon={icon}
+              alt={alt}
+              disabled={disabledLauncher}
+            />
           ))}
         </Nav>
       </div>

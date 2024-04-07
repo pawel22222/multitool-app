@@ -1,4 +1,7 @@
 import { type ReactNode } from 'react';
+import './style.scss';
+import Button from '../../components/Button';
+import { ArrowSvg } from '../../assets/svg';
 
 type Props = {
   title: string;
@@ -9,14 +12,21 @@ type Props = {
 
 export default function FormContainer({ title, children, save, cancel }: Props) {
   return (
-    <div className='form-container'>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        save();
+        cancel();
+      }}
+      className='form-container'
+    >
       <div className='form-nav'>
-        <button onClick={cancel}>{'<-'}</button>
+        <Button icon={<ArrowSvg />} onClick={cancel} />
         <h2>{title}</h2>
-        <button onClick={save}>Done</button>
+        <Button type='submit' label='Done' />
       </div>
 
       <div className='form-content'>{children}</div>
-    </div>
+    </form>
   );
 }

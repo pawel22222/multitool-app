@@ -2,10 +2,12 @@ import './style.scss';
 import { Todo as TodoType } from '../../types';
 import { useTasks } from '../../../../context/TodoListContext';
 import EditableField from '../../../../components/EditableField';
+import { EditSvg, TrashSvg } from '../../../../assets/svg';
+import Button from '../../../../components/Button';
 
-type Props = { todo: TodoType; listId: string };
+type Props = { todo: TodoType; listId: string; onEdit: (todo: TodoType) => void };
 
-export default function Todo({ todo, listId }: Props) {
+export default function Todo({ todo, listId, onEdit }: Props) {
   const { actions } = useTasks();
   const { id, name, isChecked } = todo;
 
@@ -24,9 +26,15 @@ export default function Todo({ todo, listId }: Props) {
 
       <EditableField value={name} className='todo-name' saveField={handleRenameTodo} />
 
-      <button className='todo-button remove' onClick={() => actions.removeTodo(id, listId)}>
-        X
-      </button>
+      <div className='todo-buttons'>
+        <Button className='button edit' icon={<EditSvg />} onClick={() => onEdit(todo)} />
+
+        <Button
+          className='button remove'
+          icon={<TrashSvg />}
+          onClick={() => actions.removeTodo(id, listId)}
+        />
+      </div>
     </div>
   );
 }
