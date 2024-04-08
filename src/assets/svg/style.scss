@@ -1,0 +1,17 @@
+.window-wrapper.focused .icon-svg {
+  stroke: white;
+
+  &.active {
+    stroke: $bg-blue-dark;
+  }
+  &.white {
+    stroke: white;
+  }
+  &.danger {
+    stroke: $bg-red;
+  }
+}
+
+.window-wrapper .icon-svg {
+  stroke: gray;
+}

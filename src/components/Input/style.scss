@@ -1,0 +1,15 @@
+.input-text {
+  padding: 15px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 100%;
+  background-color: transparent;
+  transition: $transition-background;
+}
+
+.window-wrapper.focused .input-text {
+  &:focus,
+  &:hover {
+    background-color: $bg-gray-light-active;
+  }
+}

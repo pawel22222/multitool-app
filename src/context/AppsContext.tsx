@@ -67,13 +67,6 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
               displayName: 'Tasks',
               minSize: { width: '600px', height: '420px' },
             };
-          case 'other-app':
-            return {
-              iconSrc: './vite.svg',
-              displayName: 'Other App',
-              minSize: { width: '420px', height: '100px' },
-            };
-
           default:
             const never: never = type;
             return never;

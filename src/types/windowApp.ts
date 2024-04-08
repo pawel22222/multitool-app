@@ -1,4 +1,4 @@
-export type WindowAppTypes = 'calculator' | 'tasks' | 'other-app';
+export type WindowAppTypes = 'calculator' | 'tasks';
 export interface WindowProps {
   id: string;
   type: WindowAppTypes;

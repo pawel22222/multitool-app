@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import CalculatorKey from '../calculatorKey';
-import { KeyData } from '../../types/calculator';
+import CalculatorKey from '../CalculatorKey';
+import { KeyData } from '../../types';
 import './style.scss';
 
 interface Props {

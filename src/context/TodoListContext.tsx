@@ -1,14 +1,16 @@
 import { createContext, useContext, useMemo, type ReactNode, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { TodoList } from '../types/tasks';
+import { Todo, TodoList } from '../apps/tasks/types';
 
 interface TasksActions {
-  addTodoList: (name: string) => void;
-  removeTodoList: (listId: string) => void;
+  addList: (name: string) => void;
+  removeList: (listId: string) => void;
   addTodo: (name: string, listId: string) => void;
   checkTodo: (listId: string, todoId: string, isChecked: boolean) => void;
   removeTodo: (todoId: string, listId: string) => void;
   renameTodo: (listId: string, todoId: string, name: string) => void;
+  renameList: (listId: string, name: string) => void;
+  updateTodo: (listId: string, todoId: string, todo: Partial<Omit<Todo, 'id'>>) => void;
   clearChecked: (listId: string) => void;
   setSelectedListId: (id: string) => void;
   getSelectedList: () => TodoList | undefined;
@@ -23,22 +25,41 @@ interface TasksValue {
 const TasksContext = createContext<TasksValue | null>(null);
 
 export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
-  const [lists, setLists] = useState<TodoList[]>([]);
-  const [selectedListId, setSelectedListId] = useState<string | null>(null);
+  const [lists, setLists] = useState<TodoList[]>([
+    { id: '1', name: 'Zakupy', todos: [{ id: '1', name: 'Mleko', isChecked: false }] },
+  ]);
+  const [selectedListId, setSelectedListId] = useState<string | null>('1');
 
-  const addTodoList = (name: string) => {
-    const newTodoList = {
+  const addList = (name: string) => {
+    const newList = {
       id: uuidv4(),
       name,
       todos: [],
     };
-    setLists((prev) => [...prev, newTodoList]);
-    setSelectedListId(newTodoList.id);
+    setLists((prev) => [...prev, newList]);
+    setSelectedListId(newList.id);
   };
 
-  const removeTodoList = (listId: string) => {
-    setLists((prev) => prev.filter(({ id }) => id !== listId));
+  const renameList = (listId: string, name: string) => {
+    setLists((prev) => {
+      return prev.map((list) => {
+        if (list.id === listId) {
+          return { ...list, name };
+        }
+        return list;
+      });
+    });
   };
+
+  const removeList = useCallback(
+    (listId: string) => {
+      if (selectedListId === listId) {
+        setSelectedListId(lists[0]?.id || null);
+      }
+      setLists((prev) => prev.filter(({ id }) => id !== listId));
+    },
+    [lists, selectedListId],
+  );
 
   const addTodo = (name: string, listId: string) => {
     const newTodo = {
@@ -94,6 +115,25 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const updateTodo = (listId: string, todoId: string, updatedTodo: Partial<Omit<Todo, 'id'>>) => {
+    setLists((prev) => {
+      return prev.map((list) => {
+        if (list.id === listId) {
+          return {
+            ...list,
+            todos: list.todos.map((todo) => {
+              if (todo.id === todoId) {
+                return { ...todo, ...updatedTodo };
+              }
+              return todo;
+            }),
+          };
+        }
+        return list;
+      });
+    });
+  };
+
   const removeTodo = (todoId: string, listId: string) => {
     setLists((prev) => {
       return prev.map((todoList) => {
@@ -124,10 +164,11 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
     return selectedList;
   }, [lists, selectedListId]);
 
-  const actions = useMemo(
-    () => ({
-      addTodoList,
-      removeTodoList,
+  const actions: TasksActions = useMemo(() => {
+    return {
+      addList,
+      renameList,
+      removeList,
       addTodo,
       checkTodo,
       removeTodo,
@@ -135,9 +176,9 @@ export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
       setSelectedListId,
       getSelectedList,
       renameTodo,
-    }),
-    [getSelectedList],
-  );
+      updateTodo,
+    };
+  }, [getSelectedList, removeList]);
   const value = useMemo(
     () => ({ lists, selectedListId, actions }),
     [actions, lists, selectedListId],

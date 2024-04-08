@@ -1,5 +1,5 @@
 import Big, { BigSource } from 'big.js';
-import { Chars, DecimalPoint, Signs } from '../types/calculator';
+import { Chars, DecimalPoint, Signs } from './types';
 
 export const PRECISION = 16;
 export const DECIMAL_POINT: DecimalPoint = '.';

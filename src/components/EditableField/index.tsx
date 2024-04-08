@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './style.scss';
 import OutsideMouseDownHandler from '../../containers/OutsideMouseDownHandler';
 
 type Props = {
@@ -25,6 +26,7 @@ export default function EditableField({ value, saveField, className = '' }: Prop
   return isEdit ? (
     <OutsideMouseDownHandler onOutsideClick={cancelEditing} capture>
       <input
+        className='editable-field edited'
         autoFocus
         type='text'
         value={inputText}
@@ -37,7 +39,7 @@ export default function EditableField({ value, saveField, className = '' }: Prop
     </OutsideMouseDownHandler>
   ) : (
     <div
-      className={className}
+      className={`editable-field ${className}`}
       onDoubleClick={() => {
         setIsEdit(true);
       }}
