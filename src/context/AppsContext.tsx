@@ -65,7 +65,7 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
             return {
               iconSrc: './tasks-icon.png',
               displayName: 'Tasks',
-              minSize: { width: '600px', height: '420px' },
+              minSize: { width: '420px', height: '600px' },
             };
           default:
             const never: never = type;

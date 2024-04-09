@@ -17,14 +17,20 @@ export default function Todo({ todo, listId, onEdit }: Props) {
 
   return (
     <div className='todo-container'>
-      <input
-        className='todo-checkbox'
-        type='checkbox'
-        checked={isChecked}
-        onChange={() => actions.checkTodo(listId, id, !isChecked)}
-      />
-
-      <EditableField value={name} className='todo-name' saveField={handleRenameTodo} />
+      <div className='todo-checkbox-container'>
+        <input
+          className='todo-checkbox'
+          type='checkbox'
+          checked={isChecked}
+          onChange={() => actions.checkTodo(listId, id, !isChecked)}
+        />
+        <EditableField
+          value={name}
+          // type='textarea'
+          className='todo-name'
+          saveField={handleRenameTodo}
+        />
+      </div>
 
       <div className='todo-buttons'>
         <Button className='button edit' icon={<EditSvg />} onClick={() => onEdit(todo)} />

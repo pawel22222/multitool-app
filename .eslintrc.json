@@ -29,6 +29,7 @@
     "no-unused-vars": "off",
     "camelcase": "off",
     "@typescript-eslint/no-shadow": "off",
+    "no-empty-pattern": "warn",
     "max-classes-per-file": "off",
     "class-methods-use-this": "off",
     "arrow-body-style": "off",

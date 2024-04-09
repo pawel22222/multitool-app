@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import './style.scss';
 import OutsideMouseDownHandler from '@/containers/OutsideMouseDownHandler';
+import Input from '../Input';
 
 type Props = {
   value: string;
   className?: string;
+  type?: 'text' | 'textarea';
   saveField: (value: string) => void;
 };
 
-export default function EditableField({ value, saveField, className = '' }: Props) {
+export default function EditableField({ value, saveField, type = 'text', className = '' }: Props) {
   const [inputText, setInputText] = useState(value);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -17,22 +19,27 @@ export default function EditableField({ value, saveField, className = '' }: Prop
     setInputText(value);
   }
 
-  function handleSaveField(name: string) {
-    saveField(name);
+  function handleSaveField() {
+    console.log('handleSaveField', inputText);
+
+    saveField(inputText);
     setIsEdit(false);
-    setInputText(name);
   }
 
   return isEdit ? (
-    <OutsideMouseDownHandler onOutsideClick={cancelEditing} capture>
-      <input
+    <OutsideMouseDownHandler
+      onOutsideClick={handleSaveField}
+      capture
+      className='editable-field-container'
+    >
+      <Input
+        type={type}
         className='editable-field edited'
         autoFocus
-        type='text'
         value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        setValue={setInputText}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSaveField(inputText);
+          if (e.key === 'Enter' && type === 'text') handleSaveField();
           if (e.key === 'Escape') cancelEditing();
         }}
       />
@@ -44,7 +51,7 @@ export default function EditableField({ value, saveField, className = '' }: Prop
         setIsEdit(true);
       }}
     >
-      {value}
+      {inputText}
     </div>
   );
 }

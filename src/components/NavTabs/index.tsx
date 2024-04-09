@@ -8,16 +8,16 @@ type Tab = {
 type Props = {
   tabs: Tab[];
   activeTabId: string | undefined;
-  selectTab: (id: string) => void;
+  onClick: (id: string) => void;
 };
 
-export default function NavTabs({ tabs, activeTabId, selectTab }: Props) {
+export default function NavTabs({ tabs, activeTabId, onClick }: Props) {
   return (
     <nav className='nav-tabs'>
       {tabs.map(({ id, name }) => (
         <button
           key={id}
-          onClick={() => selectTab(id)}
+          onClick={() => onClick(id)}
           className={`nav-tabs-item ${activeTabId === id ? 'active' : ''}`}
         >
           {name}

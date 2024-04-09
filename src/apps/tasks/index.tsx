@@ -41,6 +41,11 @@ export default function Tasks() {
     setEditedTodo(null);
   }
 
+  function handleTabOnClick(id: string) {
+    scrollToItem(id);
+    actions.setSelectedListId(id);
+  }
+
   useEffect(() => {
     if (selectedListId) scrollToItem(selectedListId);
   }, [selectedListId, carouselRef.current?.offsetWidth, showForm]);
@@ -77,11 +82,7 @@ export default function Tasks() {
       return (
         <div className='tasks-container'>
           <Nav className='tasks-nav'>
-            <NavTabs
-              tabs={lists}
-              activeTabId={selectedList?.id}
-              selectTab={actions.setSelectedListId}
-            />
+            <NavTabs tabs={lists} activeTabId={selectedList?.id} onClick={handleTabOnClick} />
 
             <Button
               className='add-list-button'
@@ -92,14 +93,20 @@ export default function Tasks() {
             />
           </Nav>
 
-          <div className='carousel' ref={carouselRef}>
-            {lists.map(({ id, todos }) => (
-              <div className='list-container' id={id} key={id}>
-                {todos.map((todo) => (
-                  <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
-                ))}
-              </div>
-            ))}
+          <div className='carousel-container'>
+            <div className='carousel' ref={carouselRef}>
+              {lists.map(({ id, todos }) => (
+                <div className='list-container' id={id} key={id}>
+                  {todos.length ? (
+                    todos.map((todo) => (
+                      <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
+                    ))
+                  ) : (
+                    <div>No tasks yet</div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {selectedList && (
