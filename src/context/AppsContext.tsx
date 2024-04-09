@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, ReactNode, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '../types/windowApp';
+import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '@/types/windowApp';
 
 interface AppsActions {
   closeApp: (id: string) => void;

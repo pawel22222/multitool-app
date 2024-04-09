@@ -4,7 +4,7 @@ import {
   DIVISION_BY_ZERO_ERROR,
   calculateTwoNumbers,
   numberToDisplay,
-} from '../apps/calculator/utils';
+} from '@/apps/calculator/utils';
 
 describe('calculateTwoNumbers function', () => {
   it('Add two numbers Add', () => {

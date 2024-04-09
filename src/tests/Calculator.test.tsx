@@ -2,8 +2,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import Calculator from '../apps/calculator';
-import { CalculatorContextProvider } from '../context/CalculatorContext';
+import Calculator from '@/apps/calculator';
+import { CalculatorContextProvider } from '@/context/CalculatorContext';
 
 function renderCalculator() {
   render(

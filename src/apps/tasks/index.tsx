@@ -1,14 +1,14 @@
 import './style.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useTasks } from '../../context/TodoListContext';
-import Nav from '../../containers/Nav';
+import { useTasks } from '@/context/TodoListContext';
+import Nav from '@/containers/Nav';
 import Todo from './components/Todo';
-import NavTabs from '../../components/NavTabs';
+import NavTabs from '@/components/NavTabs';
 import EditTodoForm from './components/EditTodoForm';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 import EditListForm from './components/EditListForm';
-import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '../../assets/svg';
+import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '@/assets/svg';
 import CreateListForm from './components/CreateListForm';
 import { Todo as TodoType } from './types';
 

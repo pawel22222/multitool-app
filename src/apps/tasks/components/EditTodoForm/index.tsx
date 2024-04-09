@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import FormContainer from '../../../../containers/FormContainer';
+import FormContainer from '@/containers/FormContainer';
 import { Todo } from '../../types';
-import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 
 type Props = {
   todo: Todo;

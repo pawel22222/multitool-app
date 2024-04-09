@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './style.scss';
-import OutsideMouseDownHandler from '../../containers/OutsideMouseDownHandler';
+import OutsideMouseDownHandler from '@/containers/OutsideMouseDownHandler';
 
 type Props = {
   value: string;

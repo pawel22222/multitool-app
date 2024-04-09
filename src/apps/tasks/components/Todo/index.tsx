@@ -1,9 +1,9 @@
 import './style.scss';
 import { Todo as TodoType } from '../../types';
-import { useTasks } from '../../../../context/TodoListContext';
-import EditableField from '../../../../components/EditableField';
-import { EditSvg, TrashSvg } from '../../../../assets/svg';
-import Button from '../../../../components/Button';
+import { useTasks } from '@/context/TodoListContext';
+import EditableField from '@/components/EditableField';
+import { EditSvg, TrashSvg } from '@/assets/svg';
+import Button from '@/components/Button';
 
 type Props = { todo: TodoType; listId: string; onEdit: (todo: TodoType) => void };
 

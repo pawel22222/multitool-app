@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import './style.scss';
-import Button from '../../components/Button';
-import { ArrowSvg } from '../../assets/svg';
+import { ArrowSvg } from '@/assets/svg';
+import Button from '@/components/Button';
 
 type Props = {
   title: string;

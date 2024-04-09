@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, type ReactNode, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Todo, TodoList } from '../apps/tasks/types';
+import { Todo, TodoList } from '@/apps/tasks/types';
 
 interface TasksActions {
   addList: (name: string) => void;

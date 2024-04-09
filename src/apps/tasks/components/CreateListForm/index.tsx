@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Input from '../../../../components/Input';
-import FormContainer from '../../../../containers/FormContainer';
+import Input from '@/components/Input';
+import FormContainer from '@/containers/FormContainer';
 
 type Props = {
   onSave: (listName: string) => void;
