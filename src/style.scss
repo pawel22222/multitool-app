@@ -3,6 +3,13 @@ body {
   color: rgba(255, 255, 255, 0.87);
 }
 
+button,
+input {
+  &:focus {
+    outline: lightgray 2px solid;
+  }
+}
+
 .app-container {
   display: flex;
   flex-flow: column;

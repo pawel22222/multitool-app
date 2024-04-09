@@ -1,9 +1,9 @@
 import { type ReactNode, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import './style.scss';
-import { WindowApp } from '../../types/windowApp';
+import { useApps } from '@/context/AppsContext';
+import { WindowApp } from '@/types/windowApp';
 import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
-import { useApps } from '../../context/AppsContext';
 
 interface Props {
   children: ReactNode;

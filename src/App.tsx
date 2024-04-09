@@ -9,7 +9,7 @@ import { WindowApp } from './types/windowApp';
 import { useApps } from './context/AppsContext';
 import { TasksContextProvider } from './context/TodoListContext';
 import Tasks from './apps/tasks';
-import AppLauncher from './components/AppLauncher';
+import Button from './components/Button';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();
@@ -73,13 +73,7 @@ function App() {
 
         <Nav>
           {appLauncher.map(({ onClick, icon, alt }) => (
-            <AppLauncher
-              key={icon}
-              onClick={onClick}
-              icon={icon}
-              alt={alt}
-              disabled={disabledLauncher}
-            />
+            <Button iconSrc={icon} alt={alt} onClick={onClick} disabled={disabledLauncher} />
           ))}
         </Nav>
       </div>

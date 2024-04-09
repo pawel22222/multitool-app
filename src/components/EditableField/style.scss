@@ -1,13 +1,16 @@
-.editable-field {
-  background-color: transparent;
-  padding: 5px;
-  border-radius: 10px;
-  font-size: 16px;
+.editable-field-container {
+  display: flex;
+  flex-grow: 1;
 
-  &.edited {
-    &:focus {
-      border: none;
-      outline: 2px solid lightgray;
-    }
+  .editable-field {
+    flex-grow: 1;
+    background-color: transparent;
+    margin: 0 5px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    font-size: 16px;
+    flex-grow: 1;
+    resize: none;
+    max-height: 100px;
   }
 }

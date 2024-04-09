@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, ReactNode, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '../types/windowApp';
+import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '@/types/windowApp';
 
 interface AppsActions {
   closeApp: (id: string) => void;
@@ -65,7 +65,7 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
             return {
               iconSrc: './tasks-icon.png',
               displayName: 'Tasks',
-              minSize: { width: '600px', height: '420px' },
+              minSize: { width: '420px', height: '600px' },
             };
           default:
             const never: never = type;

@@ -11,4 +11,6 @@ $bg-primary-active: #182135;
 $color-primary: #000;
 $color-secondary: #fff;
 
-$transition-background: background-color 0.2s ease-in-out;
+@mixin transition($property) {
+  transition: $property 0.2s ease-in-out;
+}

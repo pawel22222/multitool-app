@@ -1,9 +1,9 @@
 import './style.scss';
 import { Todo as TodoType } from '../../types';
-import { useTasks } from '../../../../context/TodoListContext';
-import EditableField from '../../../../components/EditableField';
-import { EditSvg, TrashSvg } from '../../../../assets/svg';
-import Button from '../../../../components/Button';
+import { useTasks } from '@/context/TodoListContext';
+import EditableField from '@/components/EditableField';
+import { EditSvg, TrashSvg } from '@/assets/svg';
+import Button from '@/components/Button';
 
 type Props = { todo: TodoType; listId: string; onEdit: (todo: TodoType) => void };
 
@@ -17,14 +17,20 @@ export default function Todo({ todo, listId, onEdit }: Props) {
 
   return (
     <div className='todo-container'>
-      <input
-        className='todo-checkbox'
-        type='checkbox'
-        checked={isChecked}
-        onChange={() => actions.checkTodo(listId, id, !isChecked)}
-      />
-
-      <EditableField value={name} className='todo-name' saveField={handleRenameTodo} />
+      <div className='todo-checkbox-container'>
+        <input
+          className='todo-checkbox'
+          type='checkbox'
+          checked={isChecked}
+          onChange={() => actions.checkTodo(listId, id, !isChecked)}
+        />
+        <EditableField
+          value={name}
+          type='textarea'
+          className='todo-name'
+          saveField={handleRenameTodo}
+        />
+      </div>
 
       <div className='todo-buttons'>
         <Button className='button edit' icon={<EditSvg />} onClick={() => onEdit(todo)} />

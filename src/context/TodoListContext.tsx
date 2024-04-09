@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, type ReactNode, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Todo, TodoList } from '../apps/tasks/types';
+import { Todo, TodoList } from '@/apps/tasks/types';
 
 interface TasksActions {
   addList: (name: string) => void;
@@ -25,9 +25,7 @@ interface TasksValue {
 const TasksContext = createContext<TasksValue | null>(null);
 
 export const TasksContextProvider = ({ children }: { children: ReactNode }) => {
-  const [lists, setLists] = useState<TodoList[]>([
-    { id: '1', name: 'Zakupy', todos: [{ id: '1', name: 'Mleko', isChecked: false }] },
-  ]);
+  const [lists, setLists] = useState<TodoList[]>([{ id: '1', name: 'Zakupy', todos: [] }]);
   const [selectedListId, setSelectedListId] = useState<string | null>('1');
 
   const addList = (name: string) => {

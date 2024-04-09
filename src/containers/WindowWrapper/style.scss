@@ -10,7 +10,7 @@
   width: fit-content;
   height: fit-content;
   resize: both;
-  transition: $transition-background;
+  @include transition(background-color);
 
   &.fullscreen {
     width: 100%;

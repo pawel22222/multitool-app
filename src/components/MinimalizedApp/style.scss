@@ -6,7 +6,7 @@
   cursor: pointer;
   border: 1px solid transparent;
   user-select: none;
-  transition: $transition-background;
+  @include transition(background-color);
   transition-property: border-color, background-color;
   padding: 2px;
 
@@ -34,8 +34,8 @@
   }
 
   .close {
+    @include transition(background-color);
     background-color: transparent;
-    transition: $transition-background;
     border: none;
     cursor: pointer;
     padding: 10px;

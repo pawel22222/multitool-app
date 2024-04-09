@@ -1,16 +1,17 @@
 import './style.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useTasks } from '../../context/TodoListContext';
-import Nav from '../../containers/Nav';
+import { useTasks } from '@/context/TodoListContext';
+import Nav from '@/containers/Nav';
 import Todo from './components/Todo';
-import NavTabs from '../../components/NavTabs';
+import NavTabs from '@/components/NavTabs';
 import EditTodoForm from './components/EditTodoForm';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 import EditListForm from './components/EditListForm';
-import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '../../assets/svg';
+import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '@/assets/svg';
 import CreateListForm from './components/CreateListForm';
 import { Todo as TodoType } from './types';
+import Alert from '@/components/Alert';
 
 type FormTypes = 'create-list' | 'edit-list' | 'edit-todo';
 
@@ -39,6 +40,11 @@ export default function Tasks() {
   function resetForm() {
     setShowForm(null);
     setEditedTodo(null);
+  }
+
+  function handleTabOnClick(id: string) {
+    scrollToItem(id);
+    actions.setSelectedListId(id);
   }
 
   useEffect(() => {
@@ -77,11 +83,7 @@ export default function Tasks() {
       return (
         <div className='tasks-container'>
           <Nav className='tasks-nav'>
-            <NavTabs
-              tabs={lists}
-              activeTabId={selectedList?.id}
-              selectTab={actions.setSelectedListId}
-            />
+            <NavTabs tabs={lists} activeTabId={selectedList?.id} onClick={handleTabOnClick} />
 
             <Button
               className='add-list-button'
@@ -92,14 +94,20 @@ export default function Tasks() {
             />
           </Nav>
 
-          <div className='carousel' ref={carouselRef}>
-            {lists.map(({ id, todos }) => (
-              <div className='list-container' id={id} key={id}>
-                {todos.map((todo) => (
-                  <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
-                ))}
-              </div>
-            ))}
+          <div className='carousel-container'>
+            <div className='carousel' ref={carouselRef}>
+              {lists.map(({ id, todos }) => (
+                <div className='list-container' id={id} key={id}>
+                  {todos.length ? (
+                    todos.map((todo) => (
+                      <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
+                    ))
+                  ) : (
+                    <Alert alertType='info' message='No tasks yet' />
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {selectedList && (

@@ -6,13 +6,13 @@ import {
   Chars,
   KeyData,
   Signs,
-} from '../apps/calculator/types';
+} from '@/apps/calculator/types';
 import {
   DECIMAL_POINT,
   addCharToNumber,
   calculateTwoNumbers,
   parseBig,
-} from '../apps/calculator/utils';
+} from '@/apps/calculator/utils';
 
 export const INITIAL_N = null;
 export const INITIAL_STATE: Readonly<CalcState> = {

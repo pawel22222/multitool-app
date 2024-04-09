@@ -2,8 +2,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import App from '../App';
-import AppsContextProvider from '../context/AppsContext';
+import App from '@/App';
+import AppsContextProvider from '@/context/AppsContext';
 
 describe('App', () => {
   it('renders headline', () => {

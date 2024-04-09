@@ -1,5 +1,5 @@
 import './style.scss';
-import { useCalculatorContext } from '../../context/CalculatorContext';
+import { useCalculatorContext } from '@/context/CalculatorContext';
 import CalculatorKeyboard from './components/CalculatorKeyboard';
 import CalculatorDisplay from './components/CalculatorDisplay';
 
