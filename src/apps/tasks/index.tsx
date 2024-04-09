@@ -11,6 +11,7 @@ import EditListForm from './components/EditListForm';
 import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '@/assets/svg';
 import CreateListForm from './components/CreateListForm';
 import { Todo as TodoType } from './types';
+import Alert from '@/components/Alert';
 
 type FormTypes = 'create-list' | 'edit-list' | 'edit-todo';
 
@@ -102,7 +103,7 @@ export default function Tasks() {
                       <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
                     ))
                   ) : (
-                    <div>No tasks yet</div>
+                    <Alert alertType='info' message='No tasks yet' />
                   )}
                 </div>
               ))}

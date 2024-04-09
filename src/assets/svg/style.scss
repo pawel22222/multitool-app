@@ -15,3 +15,10 @@
 .window-wrapper .icon-svg {
   stroke: gray;
 }
+
+.icon-svg.loader-svg {
+  animation-name: 'loadingRotate';
+  animation-duration: '1s';
+  animation-timing-function: 'linear';
+  animation-iteration-count: 'infinite';
+}

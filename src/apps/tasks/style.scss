@@ -39,16 +39,16 @@
 
   .add-todo-form {
     flex: 0 0 auto;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px 15px 0 0;
     background-color: $bg-gray-light;
     display: flex;
     flex-flow: column;
-    gap: 15px;
+    gap: 10px;
 
     .buttons {
       display: flex;
-      gap: 15px;
+      gap: 10px;
     }
   }
 }

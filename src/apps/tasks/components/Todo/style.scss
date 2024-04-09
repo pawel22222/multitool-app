@@ -10,9 +10,11 @@
     gap: 15px;
 
     .todo-checkbox {
+      align-self: flex-start;
       width: 30px;
       height: 30px;
-      margin: 0;
+      flex: 0 0 auto;
+      margin: 5px 0;
       appearance: none;
       border: 1px solid #ccc;
       border-radius: 50%;
@@ -43,17 +45,16 @@
   .todo-buttons {
     display: flex;
     gap: 5px;
-    align-self: flex-start;
 
     .button {
       padding: 8px;
       height: 40px;
 
-      &.edit {
-      }
+      // &.edit {
+      // }
 
-      &.remove {
-      }
+      // &.remove {
+      // }
     }
   }
 }

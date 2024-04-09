@@ -20,8 +20,6 @@ export default function EditableField({ value, saveField, type = 'text', classNa
   }
 
   function handleSaveField() {
-    console.log('handleSaveField', inputText);
-
     saveField(inputText);
     setIsEdit(false);
   }
@@ -39,7 +37,7 @@ export default function EditableField({ value, saveField, type = 'text', classNa
         value={inputText}
         setValue={setInputText}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' && type === 'text') handleSaveField();
+          if (e.key === 'Enter' && !e.shiftKey) handleSaveField();
           if (e.key === 'Escape') cancelEditing();
         }}
       />

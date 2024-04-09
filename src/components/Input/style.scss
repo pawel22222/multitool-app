@@ -4,12 +4,12 @@
   border-radius: 10px;
   width: 100%;
   background-color: transparent;
-  transition: $transition-background;
+  @include transition(border-color);
 }
 
 .window-wrapper.focused .input-text {
   &:focus,
   &:hover {
-    background-color: $bg-gray-light-active;
+    border-color: lightgray;
   }
 }

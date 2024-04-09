@@ -5,7 +5,7 @@
   padding: 10px;
   font-size: 20px;
   user-select: none;
-  transition: $transition-background;
+  @include transition(background-color);
 }
 
 .key-light {

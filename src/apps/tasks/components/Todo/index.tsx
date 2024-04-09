@@ -26,7 +26,7 @@ export default function Todo({ todo, listId, onEdit }: Props) {
         />
         <EditableField
           value={name}
-          // type='textarea'
+          type='textarea'
           className='todo-name'
           saveField={handleRenameTodo}
         />
