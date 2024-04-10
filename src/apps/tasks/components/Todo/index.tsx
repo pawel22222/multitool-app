@@ -1,6 +1,6 @@
 import './style.scss';
 import { Todo as TodoType } from '../../types';
-import { useTasks } from '@/context/TodoListContext';
+import { useTasks } from '@/context/TasksContext';
 import EditableField from '@/components/EditableField';
 import { EditSvg, TrashSvg } from '@/assets/svg';
 import Button from '@/components/Button';
@@ -24,6 +24,7 @@ export default function Todo({ todo, listId, onEdit }: Props) {
           checked={isChecked}
           onChange={() => actions.checkTodo(listId, id, !isChecked)}
         />
+
         <EditableField
           value={name}
           type='textarea'

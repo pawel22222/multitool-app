@@ -13,7 +13,13 @@
     width: 25px;
   }
 
-  &:hover {
+  &:disabled {
+    border-color: grey;
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
     border-color: lightgrey;
   }
 }

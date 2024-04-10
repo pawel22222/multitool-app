@@ -1,0 +1,32 @@
+.dropdown-content {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .title {
+      user-select: none;
+      padding: 10px 0;
+    }
+
+    .little-arrow {
+      width: 20px;
+      fill: white;
+      transition: transform 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+  }
+}

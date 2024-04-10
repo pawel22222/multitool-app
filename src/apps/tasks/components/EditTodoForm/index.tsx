@@ -6,7 +6,7 @@ import Button from '@/components/Button';
 
 type Props = {
   todo: Todo;
-  listId: string | undefined;
+  listId: string | null;
   onSave: (listId: string, todoId: string, todo: Partial<Omit<Todo, 'id'>>) => void;
   onCancel: () => void;
 };

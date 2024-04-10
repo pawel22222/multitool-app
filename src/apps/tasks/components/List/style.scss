@@ -1,0 +1,8 @@
+.list-container {
+  overflow-y: auto;
+  flex: 1 0 0;
+  min-width: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
