@@ -1,13 +1,92 @@
 .alert {
   display: flex;
+  flex-flow: column;
+  gap: 5px;
   width: 100%;
+  padding: 20px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  color: gray;
+
+  .main-container .message-container .loader-container svg,
+  .header-container .btn-close .alert-close {
+    stroke: gray;
+    fill: gray;
+  }
 
   &.alert-info {
+    background-color: #cff4fc;
+    color: #055160;
+
+    .main-container .message-container .loader-container svg,
+    .header-container .btn-close .alert-close {
+      stroke: #055160;
+      fill: #055160;
+    }
   }
   &.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+
+    .main-container .message-container .loader-container svg,
+    .header-container .btn-close .alert-close {
+      stroke: #0f5132;
+      fill: #0f5132;
+    }
   }
   &.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+
+    .main-container .message-container .loader-container svg,
+    .header-container .btn-close .alert-close {
+      stroke: #842029;
+      fill: #842029;
+    }
   }
   &.alert-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+
+    .main-container .message-container .loader-container svg,
+    .header-container .btn-close .alert-close {
+      stroke: #664d03;
+      fill: #664d03;
+    }
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+
+    .title {
+    }
+
+    .btn-close {
+      background-color: transparent;
+      margin-left: auto;
+      padding: 0;
+      border: none;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+  }
+
+  .main-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .message-container {
+      display: flex;
+
+      .loader-container {
+        width: 25px;
+        height: 25px;
+      }
+    }
   }
 }

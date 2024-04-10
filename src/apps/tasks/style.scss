@@ -6,49 +6,26 @@
 
   .tasks-nav {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 10px 0;
+    padding: 10px 15px 0;
     flex: 0 0 auto;
+    border-bottom: 1px gray solid;
 
     .add-list-button {
       text-wrap: nowrap;
+      border: none;
     }
   }
 
   .carousel-container {
     flex: 1 0 0;
     overflow-y: hidden;
+    // padding: 0 15px;
 
     .carousel {
       overflow-y: hidden;
       display: flex;
       height: 100%;
       overflow-x: hidden;
-
-      .list-container {
-        overflow-y: auto;
-        flex: 1 0 0;
-        padding: 0 10px;
-        min-width: 100%;
-        display: flex;
-        flex-flow: column;
-        gap: 10px;
-      }
-    }
-  }
-
-  .add-todo-form {
-    flex: 0 0 auto;
-    padding: 10px;
-    border-radius: 15px 15px 0 0;
-    background-color: $bg-gray-light;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-
-    .buttons {
-      display: flex;
-      gap: 10px;
     }
   }
 }

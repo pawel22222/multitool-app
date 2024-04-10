@@ -10,7 +10,7 @@ interface Props {
   result: string | null;
 }
 
-function CalculatorDisplay(props: Props) {
+function Display(props: Props) {
   const { sign, n1, n2, result } = props;
 
   const n1Display = numberToDisplay(n1);
@@ -60,4 +60,4 @@ function CalculatorDisplay(props: Props) {
   );
 }
 
-export default CalculatorDisplay;
+export default Display;
