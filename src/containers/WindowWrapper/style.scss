@@ -2,7 +2,7 @@
   position: absolute;
   border: 1px solid rgb(92, 92, 92);
   border-radius: 10px;
-  background-color: $bg-primary;
+  background-color: $bg-primary-active;
   overflow: hidden;
   display: flex;
   flex-flow: column;
@@ -10,7 +10,8 @@
   width: fit-content;
   height: fit-content;
   resize: both;
-  @include transition(background-color);
+  @include transition(filter);
+  filter: grayscale(1);
 
   &.fullscreen {
     width: 100%;
@@ -18,14 +19,8 @@
   }
 
   &.focused {
-    background-color: $bg-primary-active;
+    filter: grayscale(0);
     box-shadow: 0px 15px 30px 10px rgba(0, 0, 0, 0.5);
-
-    .window-helper-wrapper .window-header .window-header-nav .window-nav-button {
-      &:hover {
-        background-color: $bg-gray-dark-active;
-      }
-    }
   }
 
   .window-helper-wrapper {
@@ -46,8 +41,9 @@
         margin-left: 10px;
         flex-grow: 1;
 
-        // .icon {
-        // }
+        .icon {
+          pointer-events: none;
+        }
 
         .title {
           text-wrap: nowrap;
@@ -63,10 +59,24 @@
         .window-nav-button {
           background-color: transparent;
           border: none;
-          padding: 10px;
+          padding: 5px;
           width: 100%;
           cursor: pointer;
           color: gray;
+
+          svg {
+            width: 15px;
+            stroke: gray;
+            &:hover {
+              transform: scale(1);
+            }
+          }
+
+          &.window-nav-button--close {
+            svg {
+              width: 20px;
+            }
+          }
 
           &.window-nav-button--close {
             &:hover {
@@ -75,8 +85,15 @@
           }
 
           &:hover {
-            background-color: $bg-gray-dark;
-            color: white;
+            background-color: $bg-gray-dark-active;
+
+            svg {
+              stroke: white;
+            }
+          }
+
+          &:focus {
+            outline: none;
           }
         }
       }

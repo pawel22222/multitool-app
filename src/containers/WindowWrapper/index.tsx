@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+import './style.scss';
 import { type ReactNode, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
-import './style.scss';
 import { useApps } from '@/context/AppsContext';
 import { WindowApp } from '@/types/windowApp';
 import OutsideMouseDownHandler from '../OutsideMouseDownHandler';
+import { CloseSvg, FullscreenSvg, MinimalizeSvg } from '@/assets/svg';
 
 interface Props {
   children: ReactNode;
@@ -87,27 +89,27 @@ function WindowWrapper({ children, windowApp, isFocused }: Props) {
 
               <nav className='window-header-nav'>
                 <button
-                  className='window-nav-button'
+                  className='window-nav-button window-nav-button--minimalize'
                   onClick={(e) => {
                     e.stopPropagation();
                     actions.setIsMinimalize(id, true);
                   }}
                 >
-                  _
+                  <MinimalizeSvg />
                 </button>
                 <button
                   onClick={() => {
                     actions.setIsFullscreen(id, !isFullscreen);
                   }}
-                  className='window-nav-button'
+                  className='window-nav-button window-nav-button--fullscreen'
                 >
-                  []
+                  <FullscreenSvg />
                 </button>
                 <button
                   onClick={() => actions.closeApp(id)}
                   className='window-nav-button window-nav-button--close'
                 >
-                  x
+                  <CloseSvg type='white' />
                 </button>
               </nav>
             </header>

@@ -7,7 +7,7 @@ type Tab = {
 
 type Props = {
   tabs: Tab[];
-  activeTabId: string | undefined;
+  activeTabId: string | null;
   onClick: (id: string) => void;
 };
 

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import CalculatorKey from '../CalculatorKey';
+import Key from '../Key';
 import { KeyData } from '../../types';
 import './style.scss';
 
@@ -8,7 +8,7 @@ interface Props {
   isFocused: boolean;
 }
 
-function CalculatorKeyboard({ keyboard, isFocused }: Props) {
+function Keyboard({ keyboard, isFocused }: Props) {
   const keys: [content: string, onClick: () => void][] = keyboard
     .filter(({ key }) => key)
     .map(({ key, onClick }) => [key, onClick]);
@@ -34,7 +34,7 @@ function CalculatorKeyboard({ keyboard, isFocused }: Props) {
   return (
     <div className='calculator-keyboard'>
       {keyboard.map((key) => (
-        <CalculatorKey
+        <Key
           key={key.content}
           content={key.content}
           className={key.className}
@@ -48,4 +48,4 @@ function CalculatorKeyboard({ keyboard, isFocused }: Props) {
   );
 }
 
-export default CalculatorKeyboard;
+export default Keyboard;
