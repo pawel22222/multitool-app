@@ -7,7 +7,7 @@ import Nav from './containers/Nav';
 import MinimalizedApp from './components/MinimalizedApp';
 import { WindowApp } from './types/windowApp';
 import { useApps } from './context/AppsContext';
-import { TasksContextProvider } from './context/TodoListContext';
+import { TasksContextProvider } from './context/TasksContext';
 import Tasks from './apps/tasks';
 import Button from './components/Button';
 
@@ -42,11 +42,9 @@ function App() {
         );
       case 'tasks':
         return (
-          <TasksContextProvider key={id}>
-            <WindowWrapper windowApp={app} isFocused={focusedWindowId === id}>
-              <Tasks />
-            </WindowWrapper>
-          </TasksContextProvider>
+          <WindowWrapper key={id} windowApp={app} isFocused={focusedWindowId === id}>
+            <Tasks windowId={app.id} />
+          </WindowWrapper>
         );
       default:
         const never: never = type;
@@ -73,13 +71,21 @@ function App() {
 
         <Nav>
           {appLauncher.map(({ onClick, icon, alt }) => (
-            <Button iconSrc={icon} alt={alt} onClick={onClick} disabled={disabledLauncher} />
+            <Button
+              key={icon}
+              iconSrc={icon}
+              alt={alt}
+              onClick={onClick}
+              disabled={disabledLauncher}
+            />
           ))}
         </Nav>
       </div>
 
       <div className='app-pulpit'>
-        <PulpitContainer>{openedApps.map((app) => renderApp(app))}</PulpitContainer>
+        <TasksContextProvider>
+          <PulpitContainer>{openedApps.map((app) => renderApp(app))}</PulpitContainer>
+        </TasksContextProvider>
       </div>
 
       <div className='app-nav'>

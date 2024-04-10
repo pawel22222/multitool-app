@@ -1,38 +1,50 @@
 import './style.scss';
-import { useEffect, useRef, useState } from 'react';
-import { useTasks } from '@/context/TodoListContext';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTasks } from '@/context/TasksContext';
 import Nav from '@/containers/Nav';
-import Todo from './components/Todo';
 import NavTabs from '@/components/NavTabs';
 import EditTodoForm from './components/EditTodoForm';
-import Input from '@/components/Input';
 import Button from '@/components/Button';
 import EditListForm from './components/EditListForm';
-import { ClearAllSvg, EditSvg, PlusSvg, TrashSvg } from '@/assets/svg';
+import { PlusSvg } from '@/assets/svg';
 import CreateListForm from './components/CreateListForm';
-import { Todo as TodoType } from './types';
-import Alert from '@/components/Alert';
+import { Todo } from './types';
+import List from './components/List';
+import AddTodoForm from './components/AddTodoForm';
+import { useSelectedList } from './utils';
+import NoContentStatement from '@/components/NoContentStatement';
 
 type FormTypes = 'create-list' | 'edit-list' | 'edit-todo';
 
-export default function Tasks() {
-  const { lists, actions, selectedListId } = useTasks();
-  const selectedList = actions.getSelectedList();
+interface Props {
+  windowId: string;
+}
+
+export default function Tasks({ windowId }: Props) {
+  const { lists, actions } = useTasks();
+  const { selectedListId, setSelectedListId, setSelectedListIdById, setSelectedListIdToNext } =
+    useSelectedList(lists);
+  const selectedList = actions.getListById(selectedListId);
 
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const [showForm, setShowForm] = useState<FormTypes | null>(null);
-  const [editedTodo, setEditedTodo] = useState<TodoType | null>(null);
-  const [newTodoName, setNewTodoName] = useState('');
+  const [editedTodo, setEditedTodo] = useState<Todo | null>(null);
 
-  const scrollToItem = (id: string, behavior: ScrollBehavior = 'smooth') => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior, block: 'start' });
-    }
-  };
+  const disabledClearChecked =
+    selectedList?.todos.filter(({ isChecked }) => isChecked).length === 0;
 
-  function handleEditTodo(todo: TodoType) {
+  const scrollToItem = useCallback(
+    (listId: string, behavior: ScrollBehavior = 'smooth') => {
+      const element = document.getElementById(windowId + listId);
+      if (element) {
+        element.scrollIntoView({ behavior, block: 'start' });
+      }
+    },
+    [windowId],
+  );
+
+  function handleEditTodo(todo: Todo) {
     setShowForm('edit-todo');
     setEditedTodo(todo);
   }
@@ -42,14 +54,14 @@ export default function Tasks() {
     setEditedTodo(null);
   }
 
-  function handleTabOnClick(id: string) {
-    scrollToItem(id);
-    actions.setSelectedListId(id);
+  function handleTabOnClick(listId: string) {
+    scrollToItem(windowId + listId);
+    setSelectedListIdById(listId);
   }
 
   useEffect(() => {
     if (selectedListId) scrollToItem(selectedListId);
-  }, [selectedListId, carouselRef.current?.offsetWidth, showForm]);
+  }, [selectedListId, carouselRef.current?.offsetWidth, showForm, scrollToItem]);
 
   useEffect(() => {
     if (selectedListId) scrollToItem(selectedListId, 'instant');
@@ -58,7 +70,13 @@ export default function Tasks() {
 
   switch (showForm) {
     case 'create-list':
-      return <CreateListForm onSave={actions.addList} onCancel={resetForm} />;
+      return (
+        <CreateListForm
+          onSave={actions.addList}
+          onCancel={resetForm}
+          setSelectedList={setSelectedListId}
+        />
+      );
 
     case 'edit-list':
       return (
@@ -72,7 +90,7 @@ export default function Tasks() {
         editedTodo && (
           <EditTodoForm
             todo={editedTodo}
-            listId={selectedList?.id}
+            listId={selectedListId}
             onSave={actions.updateTodo}
             onCancel={resetForm}
           />
@@ -83,7 +101,7 @@ export default function Tasks() {
       return (
         <div className='tasks-container'>
           <Nav className='tasks-nav'>
-            <NavTabs tabs={lists} activeTabId={selectedList?.id} onClick={handleTabOnClick} />
+            <NavTabs tabs={lists} activeTabId={selectedListId} onClick={handleTabOnClick} />
 
             <Button
               className='add-list-button'
@@ -95,55 +113,35 @@ export default function Tasks() {
           </Nav>
 
           <div className='carousel-container'>
-            <div className='carousel' ref={carouselRef}>
-              {lists.map(({ id, todos }) => (
-                <div className='list-container' id={id} key={id}>
-                  {todos.length ? (
-                    todos.map((todo) => (
-                      <Todo key={todo.id} listId={id} todo={todo} onEdit={handleEditTodo} />
-                    ))
-                  ) : (
-                    <Alert alertType='info' message='No tasks yet' />
-                  )}
-                </div>
-              ))}
-            </div>
+            {!selectedListId ? (
+              <NoContentStatement title='Select list' />
+            ) : !lists.length ? (
+              <NoContentStatement title='No lists yet' />
+            ) : (
+              <div className='carousel' ref={carouselRef}>
+                {lists.map((list) => (
+                  <List
+                    key={list.id}
+                    list={list}
+                    handleEditTodo={handleEditTodo}
+                    windowId={windowId}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
-          {selectedList && (
-            <div className='add-todo-form'>
-              <Input
-                data-testid='add-todo-input'
-                placeholder='New task'
-                value={newTodoName}
-                setValue={setNewTodoName}
-                autoFocus
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    actions.addTodo(newTodoName, selectedList.id);
-                    setNewTodoName('');
-                  }
-                }}
-              />
-
-              <div className='buttons'>
-                <Button
-                  icon={<ClearAllSvg />}
-                  label='Clear checked'
-                  onClick={() => actions.clearChecked(selectedList.id)}
-                />
-                <Button
-                  icon={<EditSvg />}
-                  label='Rename list'
-                  onClick={() => setShowForm('edit-list')}
-                />
-                <Button
-                  icon={<TrashSvg />}
-                  label='Remove list'
-                  onClick={() => actions.removeList(selectedList.id)}
-                />
-              </div>
-            </div>
+          {selectedListId && (
+            <AddTodoForm
+              selectedListId={selectedListId}
+              removeList={() => {
+                setSelectedListIdToNext(selectedListId);
+                actions.removeList(selectedListId);
+              }}
+              disabledRemoveList={lists.length === 1}
+              disabledClearChecked={disabledClearChecked}
+              onClickEditList={() => setShowForm('edit-list')}
+            />
           )}
         </div>
       );

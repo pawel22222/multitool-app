@@ -9,14 +9,7 @@ interface Props {
   testid: string;
 }
 
-function CalculatorKey({
-  className,
-  rowPosition,
-  columnPosition,
-  onClick,
-  content,
-  testid,
-}: Props) {
+function Key({ className, rowPosition, columnPosition, onClick, content, testid }: Props) {
   return (
     <button
       className={`calculator-key ${className} order-${rowPosition}-${columnPosition}`}
@@ -29,4 +22,4 @@ function CalculatorKey({
   );
 }
 
-export default CalculatorKey;
+export default Key;
