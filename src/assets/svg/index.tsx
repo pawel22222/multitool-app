@@ -80,7 +80,11 @@ export const ClearAllSvg = ({ className, type }: SvgProps) => {
   );
 };
 
-export const ArrowSvg = ({ className, type, direction }: SvgProps & Direction) => {
+export const ArrowSvg = ({
+  className,
+  type,
+  direction = 'left',
+}: SvgProps & Partial<Direction>) => {
   const rotation = switchRotation(direction);
 
   return (
