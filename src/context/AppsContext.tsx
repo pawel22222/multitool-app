@@ -2,19 +2,17 @@ import { createContext, useContext, useMemo, ReactNode, useState, useCallback } 
 import { v4 as uuidv4 } from 'uuid';
 import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '@/types/windowApp';
 
-interface AppsActions {
-  closeApp: (id: string) => void;
-  closeAllApps: () => void;
-  setIsMinimalize: (id: string, isMinimalize: boolean) => void;
-  setIsFullscreen: (id: string, isFullscreen: boolean) => void;
-  handleSetFocusedWindowId: (id: string | null) => void;
-  openApp: (type: WindowAppTypes) => void;
-}
-
 interface AppsContextValue {
   openedApps: WindowApp[];
   focusedWindowId: string | null;
-  actions: AppsActions;
+  actions: {
+    closeApp: (id: string) => void;
+    closeAllApps: () => void;
+    setIsMinimalize: (id: string, isMinimalize: boolean) => void;
+    setIsFullscreen: (id: string, isFullscreen: boolean) => void;
+    handleSetFocusedWindowId: (id: string | null) => void;
+    openApp: (type: WindowAppTypes) => void;
+  };
 }
 
 const AppsContext = createContext<AppsContextValue | null>(null);
@@ -60,12 +58,21 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
               iconSrc: './calc-icon.png',
               displayName: 'Calculator',
               minSize: { width: '420px', height: '600px' },
+              canOpenMultiWindow: true,
             };
           case 'tasks':
             return {
               iconSrc: './tasks-icon.png',
               displayName: 'Tasks',
               minSize: { width: '420px', height: '600px' },
+              canOpenMultiWindow: true,
+            };
+          case 'settings':
+            return {
+              iconSrc: './settings-icon.png',
+              displayName: 'Settings',
+              minSize: { width: '600px', height: '400px' },
+              canOpenMultiWindow: false,
             };
           default:
             const never: never = type;
@@ -99,13 +106,24 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
 
   const openApp = useCallback(
     (type: WindowAppTypes) => {
-      if (openedApps.length < 20) {
-        const newApp = createApp(type);
+      if (openedApps.length >= 20) return;
+      const newApp = createApp(type);
+
+      if (newApp.canOpenMultiWindow) {
         setOpenedApps((prev) => [...prev, newApp]);
         handleSetFocusedWindowId(newApp.id);
+      } else {
+        const aa = openedApps.find((app) => app.type === newApp.type);
+
+        if (aa) {
+          handleSetFocusedWindowId(aa.id);
+        } else {
+          setOpenedApps((prev) => [...prev, newApp]);
+          handleSetFocusedWindowId(newApp.id);
+        }
       }
     },
-    [createApp, handleSetFocusedWindowId, openedApps.length],
+    [createApp, handleSetFocusedWindowId, openedApps],
   );
 
   function closeApp(id: string) {

@@ -1,0 +1,49 @@
+.sidebar-container {
+  display: flex;
+  flex-flow: column;
+  padding: 10px;
+  width: 250px;
+  transition: width 0.3s ease;
+
+  &.unpinned {
+    width: 70px;
+
+    .header-container {
+      transform: translateX(calc(-100% + 50px));
+    }
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    position: relative;
+    width: 230px;
+    transition: transform 0.3s ease;
+    flex: 0 0 auto;
+
+    .sidebar-header {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .menu-button {
+      margin-left: 15px;
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .sidebar-list {
+    display: flex;
+    flex-flow: column;
+    gap: 4px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    flex: 1 0 0;
+  }
+}

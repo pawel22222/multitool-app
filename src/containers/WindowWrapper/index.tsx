@@ -19,7 +19,7 @@ function WindowWrapper({ children, windowApp, isFocused }: Props) {
   const [position, setPosition] = useState(calcDefaultPosition(zIndex));
   const windowWrapper = useRef<HTMLDivElement>(null);
 
-  function calcDefaultPosition(zIndex: number, counter = 5, spaceX = 90, spaceY = 60) {
+  function calcDefaultPosition(zIndex: number, counter = 5, spaceX = 80, spaceY = 20) {
     const y =
       zIndex % (2 * counter) < counter
         ? zIndex % (2 * counter)
@@ -100,6 +100,7 @@ function WindowWrapper({ children, windowApp, isFocused }: Props) {
                 <button
                   onClick={() => {
                     actions.setIsFullscreen(id, !isFullscreen);
+                    setPosition({ x: 0, y: 0 });
                   }}
                   className='window-nav-button window-nav-button--fullscreen'
                 >

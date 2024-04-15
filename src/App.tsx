@@ -10,9 +10,12 @@ import { useApps } from './context/AppsContext';
 import { TasksContextProvider } from './context/TasksContext';
 import Tasks from './apps/tasks';
 import Button from './components/Button';
+import Settings from './apps/Settings';
+import { useSettings } from './context/SettingsContext';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();
+  const { settings } = useSettings();
   const disabledLauncher = !(openedApps.length < 20);
 
   const appLauncher = [
@@ -25,6 +28,11 @@ function App() {
       onClick: () => actions.openApp('tasks'),
       icon: './tasks-icon.png',
       alt: 'tasks icon',
+    },
+    {
+      onClick: () => actions.openApp('settings'),
+      icon: './settings-icon.png',
+      alt: 'settings icon',
     },
   ];
 
@@ -44,6 +52,12 @@ function App() {
         return (
           <WindowWrapper key={id} windowApp={app} isFocused={focusedWindowId === id}>
             <Tasks windowId={app.id} />
+          </WindowWrapper>
+        );
+      case 'settings':
+        return (
+          <WindowWrapper key={id} windowApp={app} isFocused={focusedWindowId === id}>
+            <Settings />
           </WindowWrapper>
         );
       default:
@@ -67,7 +81,9 @@ function App() {
   return (
     <div className='app-container light'>
       <div className='app-header'>
-        <h1>Apps</h1>
+        <h1>
+          Hello {settings.personal.name || 'there'} ({settings.general.theme})
+        </h1>
 
         <Nav>
           {appLauncher.map(({ onClick, icon, alt }) => (

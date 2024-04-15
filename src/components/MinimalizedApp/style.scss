@@ -26,6 +26,8 @@
 
   .icon {
     margin: 0 5px;
+    pointer-events: none;
+    user-select: none;
   }
 
   .label {
