@@ -2,8 +2,6 @@ import { createContext, useContext, useMemo, ReactNode, useState, useCallback } 
 import { v4 as uuidv4 } from 'uuid';
 import { AppProps, WindowApp, WindowAppTypes, WindowProps } from '@/types/windowApp';
 
-// interface AppsActions
-
 interface AppsContextValue {
   openedApps: WindowApp[];
   focusedWindowId: string | null;

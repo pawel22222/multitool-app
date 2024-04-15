@@ -4,15 +4,18 @@ import { describe, expect, it } from 'vitest';
 
 import App from '@/App';
 import AppsContextProvider from '@/context/AppsContext';
+import { SettingsContextProvider } from '@/context/SettingsContext';
 
 describe('App', () => {
   it('renders headline', () => {
     render(
       <AppsContextProvider>
-        <App />
+        <SettingsContextProvider>
+          <App />
+        </SettingsContextProvider>
       </AppsContextProvider>,
     );
-    const headline = screen.getByText(/Apps/i);
+    const headline = screen.getByText(/Hello/i);
     expect(headline).toBeInTheDocument();
   });
 });
