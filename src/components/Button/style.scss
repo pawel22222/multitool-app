@@ -22,4 +22,9 @@
   &:hover:not(:disabled) {
     border-color: lightgrey;
   }
+
+  .icon {
+    pointer-events: none;
+    user-select: none;
+  }
 }

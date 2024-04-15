@@ -138,7 +138,7 @@ export const LittleArrowSvg = ({ className, type, direction }: SvgProps & Direct
 
   return (
     <SvgWrapper
-      className={className}
+      className={`little-arrow ${className}`}
       type={type}
       viewBox='-7 0 24 20'
       style={{ transform: `rotate(${rotation})` }}
@@ -148,6 +148,17 @@ export const LittleArrowSvg = ({ className, type, direction }: SvgProps & Direct
         fillRule='evenodd'
         fill='inherit'
       />
+    </SvgWrapper>
+  );
+};
+
+export const BurgerMenuSvg = ({ className, type }: SvgProps) => {
+  return (
+    <SvgWrapper className={className} type={type}>
+      <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+      <path d='M4 6l16 0' />
+      <path d='M4 12l16 0' />
+      <path d='M4 18l16 0' />
     </SvgWrapper>
   );
 };

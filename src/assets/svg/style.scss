@@ -22,7 +22,22 @@
 
 .close-svg {
   transition: 0.1s ease transform;
+
   &:hover {
     transform: scale(1.2);
+  }
+}
+
+.little-arrow {
+  fill: white;
+
+  &.active {
+    fill: $bg-blue-dark;
+  }
+  &.white {
+    fill: white;
+  }
+  &.danger {
+    fill: $bg-red;
   }
 }

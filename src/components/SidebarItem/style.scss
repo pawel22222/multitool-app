@@ -1,0 +1,51 @@
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+
+  &::before {
+    content: '';
+    width: 4px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    left: 0;
+    border-radius: 0 10px 10px 0;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+
+  &:hover {
+    background-color: rgba(211, 211, 211, 0.1);
+  }
+
+  &.selected {
+    background-color: rgba(211, 211, 211, 0.1);
+
+    &::before {
+      background-color: $bg-blue-light;
+    }
+  }
+
+  .icon {
+    width: 30px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .label {
+    margin-left: 10px;
+    opacity: 0;
+    animation: Appear 0.3s 0.1s forwards;
+
+    &.hide {
+      display: none;
+    }
+  }
+}

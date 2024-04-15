@@ -1,0 +1,13 @@
+.input-radio-fieldset-container {
+  border: none;
+  padding: 0;
+  margin: 0 0 10px;
+
+  .legend {
+  }
+
+  .values {
+    display: flex;
+    gap: 10px;
+  }
+}
