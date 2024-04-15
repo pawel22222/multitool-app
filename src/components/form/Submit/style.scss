@@ -1,0 +1,12 @@
+.form-submit {
+  padding: 15px;
+  background-color: $bg-blue-dark;
+  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $bg-blue-light;
+  }
+}

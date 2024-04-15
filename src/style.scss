@@ -6,7 +6,7 @@ body {
 button,
 input,
 textarea {
-  &:focus {
+  &:focus-visible {
     outline: lightgray 2px solid;
   }
 }
