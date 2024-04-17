@@ -11,7 +11,7 @@ import { TasksContextProvider } from './context/TasksContext';
 import Tasks from './apps/tasks';
 import Button from './components/Button';
 import Settings from './apps/Settings';
-import { useSettings } from './context/SettingsContext';
+import { useSettings } from './store/settings';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();

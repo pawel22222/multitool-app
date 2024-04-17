@@ -1,11 +1,11 @@
 import './style.scss';
 import { useState } from 'react';
-import { useSettings } from '@/context/SettingsContext';
+import { useSettings } from '@/store/settings';
 import { Theme } from '../../types';
 import { FormWrapper, InputRadioFieldset, Submit } from '@/components/form';
 
 export default function PersonalForm() {
-  const { settings, actions } = useSettings();
+  const { settings, setTheme } = useSettings();
   const [inputTheme, setInputTheme] = useState(settings.general.theme);
 
   const themeValues: { label: string; value: Theme }[] = [
@@ -14,7 +14,7 @@ export default function PersonalForm() {
   ];
 
   function handleSubmit() {
-    actions.setTheme(inputTheme);
+    setTheme(inputTheme);
   }
 
   return (
