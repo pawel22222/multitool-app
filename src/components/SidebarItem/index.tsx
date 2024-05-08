@@ -7,6 +7,7 @@ type Props = {
   hideLabel?: boolean;
   iconSrc?: string;
   alt?: string;
+  testid?: string;
 };
 
 export default function SidebarItem({
@@ -16,9 +17,14 @@ export default function SidebarItem({
   hideLabel = false,
   iconSrc,
   alt,
+  testid,
 }: Props) {
   return (
-    <button className={`sidebar-item ${isSelected ? 'selected' : ''}`} onClick={onClick}>
+    <button
+      className={`sidebar-item ${isSelected ? 'selected' : ''}`}
+      onClick={onClick}
+      data-testid={testid}
+    >
       {iconSrc && <img src={iconSrc} alt={alt} className='icon' />}
 
       <span className={`label ${hideLabel ? 'hide' : ''}`}>{label}</span>

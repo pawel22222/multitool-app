@@ -10,6 +10,7 @@ type Props<T extends string> = {
   items: { id: T; label: string; iconSrc?: string }[];
   selectedId: T;
   setSelectedId: (item: T) => void;
+  testid?: string;
 };
 
 export default function Sidebar<T extends string>({
@@ -18,6 +19,7 @@ export default function Sidebar<T extends string>({
   items,
   selectedId,
   setSelectedId,
+  testid,
 }: Props<T>) {
   const [hideLabels, sethideLabels] = useState(false);
 
@@ -33,7 +35,7 @@ export default function Sidebar<T extends string>({
         />
       </div>
 
-      <div className='sidebar-list'>
+      <div className='sidebar-list' data-testid={testid}>
         {items.map(({ id, label, iconSrc }) => (
           <SidebarItem
             key={id}
@@ -43,6 +45,7 @@ export default function Sidebar<T extends string>({
             onClick={() => setSelectedId(id)}
             iconSrc={iconSrc}
             alt={`${label} icon`}
+            testid={id}
           />
         ))}
       </div>
