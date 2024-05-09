@@ -4,15 +4,12 @@ import { describe, expect, it } from 'vitest';
 
 import App from '@/App';
 import AppsContextProvider from '@/context/AppsContext';
-import { SettingsContextProvider } from '@/context/SettingsContext';
 
 describe('App', () => {
   it('renders headline', () => {
     render(
       <AppsContextProvider>
-        <SettingsContextProvider>
-          <App />
-        </SettingsContextProvider>
+        <App />
       </AppsContextProvider>,
     );
     const headline = screen.getByText(/Hello/i);

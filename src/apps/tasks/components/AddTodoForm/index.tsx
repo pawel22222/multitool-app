@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ClearAllSvg, EditSvg, TrashSvg } from '@/assets/svg';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import { useTasks } from '@/context/TasksContext';
+import { useTasks } from '@/store/tasks';
 
 type Props = {
   selectedListId: string;
@@ -21,14 +21,14 @@ export default function AddTodoForm({
   onClickEditList,
 }: Props) {
   const [newTodoName, setNewTodoName] = useState('');
-  const { actions } = useTasks();
+  const { addTodo, clearChecked } = useTasks();
 
   return (
     <div className='add-todo-form'>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          actions.addTodo(newTodoName, selectedListId);
+          addTodo(newTodoName, selectedListId);
           setNewTodoName('');
         }}
       >
@@ -45,7 +45,7 @@ export default function AddTodoForm({
         <Button
           icon={<ClearAllSvg />}
           label='Clear checked'
-          onClick={() => actions.clearChecked(selectedListId)}
+          onClick={() => clearChecked(selectedListId)}
           disabled={disabledClearChecked}
           testid='clear-checked-button'
         />

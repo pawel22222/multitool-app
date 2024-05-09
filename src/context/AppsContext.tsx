@@ -64,7 +64,7 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
             return {
               iconSrc: './tasks-icon.png',
               displayName: 'Tasks',
-              minSize: { width: '420px', height: '600px' },
+              minSize: { width: '420px', height: '400px' },
               canOpenMultiWindow: true,
             };
           case 'settings':

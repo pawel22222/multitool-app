@@ -1,18 +1,18 @@
 import './style.scss';
 import { Todo as TodoType } from '../../types';
-import { useTasks } from '@/context/TasksContext';
 import EditableField from '@/components/EditableField';
 import { EditSvg, TrashSvg } from '@/assets/svg';
 import Button from '@/components/Button';
+import { useTasks } from '@/store/tasks';
 
 type Props = { todo: TodoType; listId: string; onEdit: (todo: TodoType) => void };
 
 export default function Todo({ todo, listId, onEdit }: Props) {
-  const { actions } = useTasks();
+  const { renameTodo, checkTodo, removeTodo } = useTasks();
   const { id, name, isChecked } = todo;
 
   function handleRenameTodo(name: string) {
-    actions.renameTodo(listId, id, name);
+    renameTodo(listId, id, name);
   }
 
   return (
@@ -22,7 +22,7 @@ export default function Todo({ todo, listId, onEdit }: Props) {
           className='todo-checkbox'
           type='checkbox'
           checked={isChecked}
-          onChange={() => actions.checkTodo(listId, id, !isChecked)}
+          onChange={() => checkTodo(listId, id, !isChecked)}
           data-testid='todo-radio'
         />
 
@@ -45,7 +45,7 @@ export default function Todo({ todo, listId, onEdit }: Props) {
         <Button
           className='button remove'
           icon={<TrashSvg />}
-          onClick={() => actions.removeTodo(id, listId)}
+          onClick={() => removeTodo(id, listId)}
           testid='todo-remove-button'
         />
       </div>

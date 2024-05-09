@@ -1,6 +1,6 @@
 import './style.scss';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTasks } from '@/context/TasksContext';
+import { useTasks } from '@/store/tasks';
 import Nav from '@/containers/Nav';
 import NavTabs from '@/components/NavTabs';
 import EditTodoForm from './components/EditTodoForm';
@@ -21,10 +21,10 @@ interface Props {
 }
 
 export default function Tasks({ windowId }: Props) {
-  const { lists, actions } = useTasks();
+  const { lists, addList, renameList, removeList, updateTodo } = useTasks();
   const { selectedListId, setSelectedListId, setSelectedListIdById, setSelectedListIdToNext } =
     useSelectedList(lists);
-  const selectedList = actions.getListById(selectedListId);
+  const selectedList = lists.find(({ id }) => id === selectedListId);
 
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -71,17 +71,13 @@ export default function Tasks({ windowId }: Props) {
   switch (showForm) {
     case 'create-list':
       return (
-        <CreateListForm
-          onSave={actions.addList}
-          onCancel={resetForm}
-          setSelectedList={setSelectedListId}
-        />
+        <CreateListForm onSave={addList} onCancel={resetForm} setSelectedList={setSelectedListId} />
       );
 
     case 'edit-list':
       return (
         selectedList && (
-          <EditListForm list={selectedList} onSave={actions.renameList} onCancel={resetForm} />
+          <EditListForm list={selectedList} onSave={renameList} onCancel={resetForm} />
         )
       );
 
@@ -91,7 +87,7 @@ export default function Tasks({ windowId }: Props) {
           <EditTodoForm
             todo={editedTodo}
             listId={selectedListId}
-            onSave={actions.updateTodo}
+            onSave={updateTodo}
             onCancel={resetForm}
           />
         )
@@ -141,7 +137,7 @@ export default function Tasks({ windowId }: Props) {
               selectedListId={selectedListId}
               removeList={() => {
                 setSelectedListIdToNext(selectedListId);
-                actions.removeList(selectedListId);
+                removeList(selectedListId);
               }}
               disabledRemoveList={lists.length === 1}
               disabledClearChecked={disabledClearChecked}

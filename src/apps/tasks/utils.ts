@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { TodoList } from './types';
 
-export function createTodoList(name: string) {
+export function createTodoList(name: string): TodoList {
   return {
     id: uuidv4(),
     name,
@@ -11,7 +11,7 @@ export function createTodoList(name: string) {
 }
 
 export function useSelectedList(lists: TodoList[]) {
-  const [selectedListId, setSelectedListId] = useState<string | null>(lists[0].id);
+  const [selectedListId, setSelectedListId] = useState<string | null>(lists[0]?.id || null);
 
   const setSelectedListIdToNext = (listId: string) => {
     const indexSelectedList = lists.findIndex(({ id }) => id === listId);
