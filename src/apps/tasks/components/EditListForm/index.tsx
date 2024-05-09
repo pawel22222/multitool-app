@@ -22,13 +22,9 @@ export default function EditListForm({ list, onSave, onCancel }: Props) {
         value={listName}
         setValue={setListName}
         placeholder='List name'
+        testid='rename-list-input'
         autoFocus
         required
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleOnSave();
-          }
-        }}
       />
     </FormContainer>
   );

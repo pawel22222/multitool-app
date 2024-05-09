@@ -36,7 +36,7 @@ export default function Tasks({ windowId }: Props) {
 
   const scrollToItem = useCallback(
     (listId: string, behavior: ScrollBehavior = 'smooth') => {
-      const element = document.getElementById(windowId + listId);
+      const element = document.getElementById(windowId + listId) as HTMLDivElement;
       if (element) {
         element.scrollIntoView({ behavior, block: 'start' });
       }
@@ -101,11 +101,16 @@ export default function Tasks({ windowId }: Props) {
       return (
         <div className='tasks-container'>
           <Nav className='tasks-nav'>
-            <NavTabs tabs={lists} activeTabId={selectedListId} onClick={handleTabOnClick} />
+            <NavTabs
+              tabs={lists}
+              activeTabId={selectedListId}
+              onClick={handleTabOnClick}
+              testid='todo-lists'
+            />
 
             <Button
               className='add-list-button'
-              data-testid='add-list-button'
+              testid='add-list-button'
               icon={<PlusSvg />}
               label='New list'
               onClick={() => setShowForm('create-list')}
@@ -118,7 +123,7 @@ export default function Tasks({ windowId }: Props) {
             ) : !lists.length ? (
               <NoContentStatement title='No lists yet' />
             ) : (
-              <div className='carousel' ref={carouselRef}>
+              <div className='carousel' ref={carouselRef} data-testid='list-carousel'>
                 {lists.map((list) => (
                   <List
                     key={list.id}

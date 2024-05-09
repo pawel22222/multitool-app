@@ -16,13 +16,14 @@ export default function Todo({ todo, listId, onEdit }: Props) {
   }
 
   return (
-    <div className='todo-container'>
+    <div className='todo-container' data-testid='todo-container'>
       <div className='todo-checkbox-container'>
         <input
           className='todo-checkbox'
           type='checkbox'
           checked={isChecked}
           onChange={() => actions.checkTodo(listId, id, !isChecked)}
+          data-testid='todo-radio'
         />
 
         <EditableField
@@ -34,12 +35,18 @@ export default function Todo({ todo, listId, onEdit }: Props) {
       </div>
 
       <div className='todo-buttons'>
-        <Button className='button edit' icon={<EditSvg />} onClick={() => onEdit(todo)} />
+        <Button
+          className='button edit'
+          icon={<EditSvg />}
+          onClick={() => onEdit(todo)}
+          testid='todo-edit-button'
+        />
 
         <Button
           className='button remove'
           icon={<TrashSvg />}
           onClick={() => actions.removeTodo(id, listId)}
+          testid='todo-remove-button'
         />
       </div>
     </div>

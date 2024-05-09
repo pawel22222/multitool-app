@@ -3,13 +3,13 @@ import './style.scss';
 
 type Props = {
   children: ReactNode;
-  testId?: string;
+  testid?: string;
   className?: string;
 };
 
-export default function Nav({ children, testId, className }: Props) {
+export default function Nav({ children, testid, className }: Props) {
   return (
-    <div className={`nav-container ${className || ''}`} data-testid={testId}>
+    <div className={`nav-container ${className || ''}`} data-testid={testid}>
       {children}
     </div>
   );

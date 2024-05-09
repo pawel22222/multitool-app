@@ -21,7 +21,14 @@ export default function CreateListForm({ onSave, onCancel, setSelectedList }: Pr
 
   return (
     <FormContainer title='Create new list' save={handleOnSave} cancel={onCancel}>
-      <Input value={listName} setValue={setListName} placeholder='List name' autoFocus required />
+      <Input
+        value={listName}
+        setValue={setListName}
+        placeholder='List name'
+        testid='add-list-input'
+        autoFocus
+        required
+      />
     </FormContainer>
   );
 }
