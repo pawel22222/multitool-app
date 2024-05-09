@@ -1,14 +1,14 @@
 import './style.scss';
 import { useState } from 'react';
-import { useSettings } from '@/context/SettingsContext';
+import { useSettings } from '@/store/settings';
 import { FormWrapper, InputText, Submit } from '@/components/form';
 
 export default function PersonalForm() {
-  const { settings, actions } = useSettings();
+  const { settings, setName } = useSettings();
   const [inputName, setInputName] = useState(settings.personal.name);
 
   function handleSubmit() {
-    actions.setName(inputName);
+    setName(inputName);
   }
 
   return (

@@ -7,11 +7,10 @@ import Nav from './containers/Nav';
 import MinimalizedApp from './components/MinimalizedApp';
 import { WindowApp } from './types/windowApp';
 import { useApps } from './context/AppsContext';
-import { TasksContextProvider } from './context/TasksContext';
 import Tasks from './apps/tasks';
 import Button from './components/Button';
 import Settings from './apps/Settings';
-import { useSettings } from './context/SettingsContext';
+import { useSettings } from './store/settings';
 
 function App() {
   const { openedApps, focusedWindowId, actions } = useApps();
@@ -99,9 +98,7 @@ function App() {
       </div>
 
       <div className='app-pulpit'>
-        <TasksContextProvider>
-          <PulpitContainer>{openedApps.map((app) => renderApp(app))}</PulpitContainer>
-        </TasksContextProvider>
+        <PulpitContainer>{openedApps.map((app) => renderApp(app))}</PulpitContainer>
       </div>
 
       <div className='app-nav'>

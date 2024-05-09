@@ -3,7 +3,6 @@ import { fireEvent, render, getByText, getAllByTestId, getByTestId } from '@test
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import Tasks from '../apps/tasks';
-import { TasksContextProvider } from '@/context/TasksContext';
 
 Element.prototype.scrollIntoView = () => {};
 
@@ -11,11 +10,7 @@ describe('Tasks - list operations', () => {
   let component: ReturnType<typeof render>;
 
   beforeEach(() => {
-    component = render(
-      <TasksContextProvider>
-        <Tasks windowId='abc' />
-      </TasksContextProvider>,
-    );
+    component = render(<Tasks windowId='abc' />);
   });
 
   it('Should add list', () => {
@@ -66,11 +61,7 @@ describe('Tasks - todo operations', () => {
   let component: ReturnType<typeof render>;
 
   beforeEach(() => {
-    component = render(
-      <TasksContextProvider>
-        <Tasks windowId='abc' />
-      </TasksContextProvider>,
-    );
+    component = render(<Tasks windowId='abc' />);
   });
 
   it('Should add todo', () => {

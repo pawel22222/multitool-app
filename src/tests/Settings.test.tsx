@@ -2,17 +2,12 @@
 import { fireEvent, render } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import Settings from '@/apps/Settings';
-import { SettingsContextProvider } from '@/context/SettingsContext';
 
 describe('Settings', () => {
   let component: ReturnType<typeof render>;
 
   beforeEach(() => {
-    component = render(
-      <SettingsContextProvider>
-        <Settings />
-      </SettingsContextProvider>,
-    );
+    component = render(<Settings />);
   });
 
   it('Renders settings', () => {
