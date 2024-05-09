@@ -44,6 +44,7 @@ export default function Settings() {
         items={settingsCategories}
         selectedId={selectedCategory}
         setSelectedId={setSelectedCategory}
+        testid='settings-categories'
       />
 
       <main className='main'>{switchCategory(selectedCategory)}</main>

@@ -16,6 +16,7 @@ export default function InputRadioFieldset<T>({ label, values, selected, setSele
       <div className='values'>
         {values.map(({ value, label }) => (
           <InputRadio
+            key={label}
             id={`${label}-${value}`}
             label={label}
             value={value}

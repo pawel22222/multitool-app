@@ -8,7 +8,7 @@ type Props = {
   onClick?: () => void;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
-  dataTestid?: string;
+  testid?: string;
   disabled?: boolean;
 };
 
@@ -20,14 +20,14 @@ export default function Button({
   onClick = () => {},
   type = 'button',
   className = '',
-  dataTestid = '',
+  testid = '',
   disabled = false,
 }: Props) {
   return (
     <button
       type={type}
       className={`button ${className}`}
-      data-testid={dataTestid}
+      data-testid={testid}
       onClick={onClick}
       disabled={disabled}
     >

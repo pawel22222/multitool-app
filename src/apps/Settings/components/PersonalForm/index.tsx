@@ -18,6 +18,7 @@ export default function PersonalForm() {
         label='Name'
         value={inputName}
         setValue={setInputName}
+        testid='input-name'
       />
 
       <Submit label='Save' />

@@ -8,7 +8,7 @@ type Props = {
   required?: boolean;
   className?: string;
   autoFocus?: boolean;
-  dataTestid?: string;
+  testid?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
@@ -20,7 +20,7 @@ export default function Input({
   required = false,
   className = '',
   autoFocus = false,
-  dataTestid = '',
+  testid = '',
   onKeyDown = () => {},
 }: Props) {
   return type === 'textarea' ? (
@@ -30,7 +30,7 @@ export default function Input({
       value={value}
       onChange={(e) => setValue(e.target.value)}
       autoFocus={autoFocus}
-      data-testid={dataTestid}
+      data-testid={testid}
       onKeyDown={onKeyDown}
       required={required}
     />
@@ -42,7 +42,7 @@ export default function Input({
       value={value}
       onChange={(e) => setValue(e.target.value)}
       autoFocus={autoFocus}
-      data-testid={dataTestid}
+      data-testid={testid}
       onKeyDown={onKeyDown}
       required={required}
     />

@@ -9,11 +9,12 @@ type Props = {
   tabs: Tab[];
   activeTabId: string | null;
   onClick: (id: string) => void;
+  testid?: string;
 };
 
-export default function NavTabs({ tabs, activeTabId, onClick }: Props) {
+export default function NavTabs({ tabs, activeTabId, onClick, testid }: Props) {
   return (
-    <nav className='nav-tabs'>
+    <nav className='nav-tabs' data-testid={testid}>
       {tabs.map(({ id, name }) => (
         <button
           key={id}

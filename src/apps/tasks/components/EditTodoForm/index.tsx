@@ -26,7 +26,14 @@ export default function EditTodoForm({ todo, listId, onSave, onCancel }: Props) 
 
   return (
     <FormContainer title='Edit todo' save={handleOnSave} cancel={onCancel}>
-      <Input value={todoInput} setValue={setTodoInput} placeholder='Todo name' autoFocus required />
+      <Input
+        value={todoInput}
+        setValue={setTodoInput}
+        placeholder='Todo name'
+        testid='todo-rename-input'
+        autoFocus
+        required
+      />
 
       <Button
         label={todo.isChecked ? 'Mark uncompleted' : 'Mark completed'}

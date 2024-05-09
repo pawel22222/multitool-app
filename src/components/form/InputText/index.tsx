@@ -8,6 +8,7 @@ type Props = {
   setValue: (value: string) => void;
   className?: string;
   autofocus?: boolean;
+  testid?: string;
 };
 
 export default function InputText({
@@ -17,6 +18,7 @@ export default function InputText({
   setValue,
   className,
   autofocus = false,
+  testid,
 }: Props) {
   const elementId = id || `input-${label}`;
 
@@ -33,6 +35,7 @@ export default function InputText({
         onChange={(e) => setValue(e.target.value)}
         autoFocus={autofocus}
         autoComplete='off'
+        data-testid={testid}
       />
     </div>
   );

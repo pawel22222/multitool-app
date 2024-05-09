@@ -25,19 +25,21 @@ export default function AddTodoForm({
 
   return (
     <div className='add-todo-form'>
-      <Input
-        data-testid='add-todo-input'
-        placeholder='New task'
-        value={newTodoName}
-        setValue={setNewTodoName}
-        autoFocus
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            actions.addTodo(newTodoName, selectedListId);
-            setNewTodoName('');
-          }
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          actions.addTodo(newTodoName, selectedListId);
+          setNewTodoName('');
         }}
-      />
+      >
+        <Input
+          testid='add-todo-input'
+          placeholder='New task'
+          value={newTodoName}
+          setValue={setNewTodoName}
+          autoFocus
+        />
+      </form>
 
       <div className='buttons'>
         <Button
@@ -45,13 +47,20 @@ export default function AddTodoForm({
           label='Clear checked'
           onClick={() => actions.clearChecked(selectedListId)}
           disabled={disabledClearChecked}
+          testid='clear-checked-button'
         />
-        <Button icon={<EditSvg />} label='Rename list' onClick={onClickEditList} />
+        <Button
+          icon={<EditSvg />}
+          label='Rename list'
+          onClick={onClickEditList}
+          testid='rename-list-button'
+        />
         <Button
           icon={<TrashSvg />}
           label='Remove list'
           onClick={removeList}
           disabled={disabledRemoveList}
+          testid='remove-list-button'
         />
       </div>
     </div>
