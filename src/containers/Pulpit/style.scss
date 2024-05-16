@@ -2,7 +2,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: $bg-gray-light-active;
+  @include themed() {
+    background-color: t($bg-secondary);
+  }
 
   display: flex;
   flex-flow: row wrap;

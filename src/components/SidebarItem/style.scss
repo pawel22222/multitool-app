@@ -8,6 +8,12 @@
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+  @include transition('border-color, background-color');
+  @include themed() {
+    color: t($text-primary);
+    background-color: t($bg-primary-active);
+  }
 
   &::before {
     content: '';
@@ -22,14 +28,20 @@
   }
 
   &:hover {
-    background-color: rgba(211, 211, 211, 0.1);
+    @include themed() {
+      border-color: t(border-color);
+    }
   }
 
   &.selected {
-    background-color: rgba(211, 211, 211, 0.1);
+    @include themed() {
+      background-color: lighten(t($bg-primary-active), 4%);
+    }
 
     &::before {
-      background-color: $bg-blue-light;
+      @include themed() {
+        background-color: $bg-blue-light;
+      }
     }
   }
 

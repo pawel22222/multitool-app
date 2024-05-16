@@ -13,6 +13,13 @@
     .add-list-button {
       text-wrap: nowrap;
       border: none;
+      @include themed() {
+        color: t($text-primary);
+      }
+
+      &:hover {
+        color: $bg-blue-dark;
+      }
     }
   }
 
@@ -32,6 +39,8 @@
 
 .window-wrapper.focused .tasks-container {
   .add-todo-form {
-    background-color: $bg-gray-dark-active;
+    @include themed() {
+      background-color: t($bg-primary);
+    }
   }
 }

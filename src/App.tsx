@@ -78,7 +78,7 @@ function App() {
   };
 
   return (
-    <div className='app-container light'>
+    <div className={`app-container theme--${settings.general.theme}`}>
       <div className='app-header'>
         <h1>
           Hello {settings.personal.name || 'there'} ({settings.general.theme})

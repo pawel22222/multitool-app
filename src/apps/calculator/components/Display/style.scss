@@ -1,5 +1,7 @@
 .calculator-display {
-  color: $color-secondary;
+  @include themed() {
+    color: t($text-primary);
+  }
   height: 160px;
   margin-bottom: 4px;
   display: flex;
@@ -12,7 +14,9 @@
 
     div {
       font-size: 14px;
-      color: gray;
+      @include themed() {
+        color: t($text-secondary);
+      }
       user-select: none;
       text-wrap: nowrap;
     }
@@ -27,7 +31,9 @@
 
     .second-display {
       font-size: 14px;
-      color: gray;
+      @include themed() {
+        color: t($text-secondary);
+      }
       user-select: none;
       text-wrap: nowrap;
     }

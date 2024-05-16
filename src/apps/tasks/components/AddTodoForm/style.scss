@@ -2,7 +2,9 @@
   flex: 0 0 auto;
   padding: 10px;
   border-radius: 15px 15px 0 0;
-  background-color: $bg-gray-light;
+  @include themed() {
+    background-color: t($bg-gray-light);
+  }
   display: flex;
   flex-flow: column;
   gap: 10px;

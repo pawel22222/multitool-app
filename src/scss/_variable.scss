@@ -1,16 +1,68 @@
-$bg-gray-light: #3d3d3d;
-$bg-gray-dark: #333;
-$bg-gray-light-active: #394253;
-$bg-gray-dark-active: #333a47;
+@mixin transition($property) {
+  transition: 0.2s ease-in-out;
+  transition-property: $property;
+}
+
 $bg-red: #eb3535;
 $bg-blue-light: #61c0ff;
 $bg-blue-dark: #379cdf;
 
-$bg-primary: #222;
-$bg-primary-active: #182135;
-$color-primary: #000;
-$color-secondary: #fff;
+$themes: (
+  light: (
+    bg-primary: #ebebeb,
+    bg-primary-active: #f5f5f5,
+    bg-secondary: #e4e8f1,
+    border-color: #92929260,
 
-@mixin transition($property) {
-  transition: $property 0.2s ease-in-out;
+    text-primary: rgba(0, 0, 0, 0.8),
+    text-primary-inverse: rgba(255, 255, 255, 0.8),
+    text-secondary: rgba(0, 0, 0, 0.5),
+    bg-gray-light: #b2daff,
+    bg-gray-dark: #77abdb,
+  ),
+  dark: (
+    bg-primary: #333a47,
+    bg-primary-active: #182135,
+    bg-secondary: #394253,
+    border-color: #5c5c5c60,
+
+    text-primary: rgba(255, 255, 255, 0.8),
+    text-primary-inverse: rgba(0, 0, 0, 0.8),
+    text-secondary: rgba(255, 255, 255, 0.5),
+    bg-gray-light: #3d3d3d,
+    bg-gray-dark: #333,
+  ),
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
 }
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
+
+$bg-gray-light: 'bg-gray-light';
+$bg-gray-dark: 'bg-gray-dark';
+$border-color: 'border-color';
+$bg-secondary: 'bg-secondary';
+$bg-primary: 'bg-primary';
+$bg-primary-active: 'bg-primary-active';
+$text-primary: 'text-primary';
+$text-primary-inverse: 'text-primary-inverse';
+$text-secondary: 'text-secondary';

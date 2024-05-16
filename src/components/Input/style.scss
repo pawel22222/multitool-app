@@ -1,15 +1,18 @@
 .input-text {
   padding: 15px;
-  border: 1px solid gray;
   border-radius: 10px;
   width: 100%;
   background-color: transparent;
-  @include transition(border-color);
+  @include themed() {
+    color: t($text-primary);
+    border: 1px solid t($border-color);
+  }
 }
 
 .window-wrapper.focused .input-text {
-  &:focus,
-  &:hover {
-    border-color: lightgray;
+  &:focus {
+    @include themed() {
+      // border-color: transparent;
+    }
   }
 }
