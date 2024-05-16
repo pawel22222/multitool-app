@@ -6,22 +6,28 @@
   cursor: pointer;
   border: 1px solid transparent;
   user-select: none;
-  @include transition(background-color);
-  transition-property: border-color, background-color;
   padding: 2px;
-
-  &.focused {
-    background-color: $bg-primary-active;
-
-    &:hover {
-      border: 1px solid gray;
-      background-color: $bg-gray-dark-active;
-    }
+  @include transition('border-color, background-color');
+  @include themed() {
+    background-color: t($bg-primary);
   }
 
   &:hover {
-    border: 1px solid gray;
-    background-color: $bg-gray-light-active;
+    @include themed() {
+      border: 1px solid t($border-color);
+    }
+  }
+
+  &.focused {
+    @include themed() {
+      background-color: lighten(t($bg-primary), 4%);
+    }
+
+    &:hover {
+      @include themed() {
+        border: 1px solid t($border-color);
+      }
+    }
   }
 
   .icon {
@@ -37,16 +43,20 @@
   }
 
   .close {
-    @include transition(background-color);
+    @include transition('background-color, color');
     background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
     padding: 10px;
+    @include themed() {
+      color: t($text-primary);
+    }
 
     &:hover {
       background-color: $bg-red;
+      color: white;
     }
   }
 }

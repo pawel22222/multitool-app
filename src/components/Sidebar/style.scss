@@ -33,6 +33,10 @@
 
       svg {
         transition: transform 0.3s ease;
+        @include themed() {
+          stroke: t($text-secondary) !important;
+          fill: t($text-secondary);
+        }
       }
     }
   }

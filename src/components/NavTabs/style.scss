@@ -11,8 +11,10 @@
     border: none;
     cursor: pointer;
     position: relative;
-    @include transition(background-color);
-    transition-property: color;
+    @include transition('background-color, color');
+    @include themed() {
+      color: t($text-primary);
+    }
 
     &.active {
       color: $bg-blue-dark;

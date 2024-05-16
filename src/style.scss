@@ -1,13 +1,8 @@
-body {
-  background-color: $bg-gray-dark-active;
-  color: rgba(255, 255, 255, 0.87);
-}
-
 button,
 input,
 textarea {
   &:focus-visible {
-    outline: lightgray 2px solid;
+    outline: #65b9f1 3px solid;
   }
 }
 
@@ -18,6 +13,15 @@ textarea {
   height: inherit;
   padding: 8px;
   position: absolute;
+
+  &.theme--dark {
+    background-color: map-get(map-get($themes, 'dark'), $bg-primary);
+    color: map-get(map-get($themes, 'dark'), $text-primary);
+  }
+  &.theme--light {
+    background-color: map-get(map-get($themes, 'light'), $bg-primary);
+    color: map-get(map-get($themes, 'light'), $text-primary);
+  }
 
   .app-header {
     z-index: 1;

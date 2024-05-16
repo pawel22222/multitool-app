@@ -20,6 +20,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      @include themed() {
+        stroke: t($text-secondary) !important;
+        fill: t($text-secondary);
+      }
     }
   }
 

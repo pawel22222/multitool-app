@@ -1,8 +1,10 @@
 .window-wrapper {
+  @include themed() {
+    background-color: t($bg-primary-active);
+    border: 1px solid t($border-color);
+  }
   position: absolute;
-  border: 1px solid rgb(92, 92, 92);
   border-radius: 10px;
-  background-color: $bg-primary-active;
   overflow: hidden;
   display: flex;
   flex-flow: column;
@@ -57,6 +59,7 @@
         width: 150px;
 
         .window-nav-button {
+          @include transition('background-color, stroke');
           background-color: transparent;
           border: none;
           padding: 5px;
@@ -66,29 +69,34 @@
 
           svg {
             width: 15px;
-            stroke: gray;
+            @include themed() {
+              stroke: t($text-primary);
+            }
+
             &:hover {
               transform: scale(1);
             }
           }
 
           &.window-nav-button--close {
+            background-color: transparent;
+
             svg {
               width: 20px;
             }
-          }
 
-          &.window-nav-button--close {
             &:hover {
               background-color: $bg-red;
+
+              svg {
+                stroke: white;
+              }
             }
           }
 
           &:hover {
-            background-color: $bg-gray-dark-active;
-
-            svg {
-              stroke: white;
+            @include themed() {
+              background-color: t($bg-primary);
             }
           }
 

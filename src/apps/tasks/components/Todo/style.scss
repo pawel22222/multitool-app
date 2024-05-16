@@ -22,7 +22,7 @@
       cursor: pointer;
 
       &:checked {
-        background-color: #007bff;
+        background-color: $bg-blue-dark;
         display: flex;
         justify-content: center;
         align-items: center;

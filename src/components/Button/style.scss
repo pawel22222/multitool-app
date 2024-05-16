@@ -1,26 +1,32 @@
 .button {
   padding: 8px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  @include transition(border-color);
+  border-radius: 6px;
+  border: 1px solid transparent;
   background-color: transparent;
+  @include transition('border-color, background-color');
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
+  @include themed() {
+    color: t($text-primary);
+  }
 
   svg {
     width: 25px;
   }
 
   &:disabled {
-    border-color: grey;
+    border-color: lightgrey;
+    color: gray;
     filter: grayscale(1);
     cursor: not-allowed;
   }
 
   &:hover:not(:disabled) {
-    border-color: lightgrey;
+    @include themed() {
+      border-color: t($border-color);
+    }
   }
 
   .icon {

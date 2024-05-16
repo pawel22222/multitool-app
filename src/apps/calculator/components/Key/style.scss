@@ -6,26 +6,39 @@
   font-size: 20px;
   user-select: none;
   @include transition(background-color);
+  @include themed() {
+    color: t($text-primary);
+    border: 1px solid t($border-color);
+    border-bottom: 2px solid t($border-color);
+  }
 }
 
 .key-light {
-  background-color: $bg-gray-light-active;
+  @include themed() {
+    background-color: t($bg-secondary);
+  }
   &:hover {
-    background-color: $bg-gray-dark-active;
+    @include themed() {
+      background-color: t($bg-primary);
+    }
   }
 }
 
 .key-dark {
-  background-color: $bg-gray-dark-active;
+  @include themed() {
+    background-color: t($bg-primary);
+  }
 
   &:hover {
-    background-color: $bg-gray-light-active;
+    @include themed() {
+      background-color: t($bg-secondary);
+    }
   }
 }
 
 .key-equals {
+  color: white !important;
   background-color: $bg-blue-light;
-  color: $color-primary;
 
   &:hover {
     background-color: $bg-blue-dark;
