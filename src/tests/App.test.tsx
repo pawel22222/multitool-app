@@ -12,7 +12,7 @@ describe('App', () => {
         <App />
       </AppsContextProvider>,
     );
-    const headline = screen.getByText(/Hello/i);
+    const headline = screen.getByText(/Hi /i);
     expect(headline).toBeInTheDocument();
   });
 });
