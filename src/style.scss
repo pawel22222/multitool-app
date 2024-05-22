@@ -28,7 +28,20 @@ textarea {
     position: sticky;
     top: 0;
     left: 0;
-    padding: 8px 0;
+    padding: 0 0 8px 0;
+    display: flex;
+    justify-content: space-between;
+
+    .greet-header {
+      font-size: 18px;
+      font-weight: bold;
+      max-width: 200px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-wrap: nowrap;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .app-pulpit {
@@ -41,6 +54,6 @@ textarea {
     position: sticky;
     bottom: 0;
     left: 0;
-    padding-top: 8px;
+    padding: 8px 0 0 0;
   }
 }

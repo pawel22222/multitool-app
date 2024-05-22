@@ -12,7 +12,7 @@ export default function PersonalForm() {
   }
 
   return (
-    <FormWrapper submit={handleSubmit}>
+    <FormWrapper title='Personal' submit={handleSubmit}>
       <InputText
         id='settings-personal-name'
         label='Name'
