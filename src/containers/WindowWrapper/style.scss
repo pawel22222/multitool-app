@@ -86,7 +86,7 @@
             }
 
             &:hover {
-              background-color: $bg-red;
+              background-color: $bg-red !important;
 
               svg {
                 stroke: white;
