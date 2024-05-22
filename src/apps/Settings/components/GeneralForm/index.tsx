@@ -1,32 +1,21 @@
 import './style.scss';
-import { useState } from 'react';
 import { useSettings } from '@/store/settings';
-import { Theme } from '../../types';
-import { FormWrapper, InputRadioFieldset, Submit } from '@/components/form';
+import { FormWrapper } from '@/components/form';
+import InputCheckbox from '@/components/form/InputCheckbox';
 
 export default function PersonalForm() {
   const { settings, setTheme } = useSettings();
-  const [inputTheme, setInputTheme] = useState(settings.general.theme);
 
-  const themeValues: { label: string; value: Theme }[] = [
-    { label: 'Dark', value: 'dark' },
-    { label: 'Light', value: 'light' },
-  ];
-
-  function handleSubmit() {
-    setTheme(inputTheme);
-  }
+  function handleSubmit() {}
 
   return (
-    <FormWrapper submit={handleSubmit}>
-      <InputRadioFieldset
-        label='Theme'
-        selected={inputTheme}
-        setSelected={setInputTheme}
-        values={themeValues}
+    <FormWrapper submit={handleSubmit} title='General'>
+      <InputCheckbox
+        id='theme'
+        label='Dark mode'
+        checked={settings.general.theme === 'dark'}
+        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
       />
-
-      <Submit label='Save' />
     </FormWrapper>
   );
 }

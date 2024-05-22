@@ -80,10 +80,6 @@ function App() {
   return (
     <div className={`app-container theme--${settings.general.theme}`}>
       <div className='app-header'>
-        <h1>
-          Hello {settings.personal.name || 'there'} ({settings.general.theme})
-        </h1>
-
         <Nav>
           {appLauncher.map(({ onClick, icon, alt }) => (
             <Button
@@ -95,6 +91,8 @@ function App() {
             />
           ))}
         </Nav>
+
+        <h1 className='greet-header'>Hi {settings.personal.name || 'there'}</h1>
       </div>
 
       <div className='app-pulpit'>

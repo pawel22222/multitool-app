@@ -96,12 +96,33 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
     [getBiggestZIndex],
   );
 
+  const setIsMinimalize = useCallback(
+    (id: string | null, isMinimalize: boolean) => {
+      if (!id) return;
+
+      setOpenedApps((prev) => {
+        return prev.map((app) => {
+          if (app.id === id) {
+            app.isMinimalize = isMinimalize;
+
+            if (isMinimalize && id === focusedWindowId) {
+              setFocusedWindowId(null);
+            }
+          }
+          return app;
+        });
+      });
+    },
+    [focusedWindowId],
+  );
+
   const handleSetFocusedWindowId = useCallback(
     (id: string | null) => {
       increaseZIndex(id);
       setFocusedWindowId(id);
+      setIsMinimalize(id, false);
     },
-    [increaseZIndex],
+    [increaseZIndex, setIsMinimalize],
   );
 
   const openApp = useCallback(
@@ -113,10 +134,10 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
         setOpenedApps((prev) => [...prev, newApp]);
         handleSetFocusedWindowId(newApp.id);
       } else {
-        const aa = openedApps.find((app) => app.type === newApp.type);
+        const app = openedApps.find((app) => app.type === newApp.type);
 
-        if (aa) {
-          handleSetFocusedWindowId(aa.id);
+        if (app) {
+          handleSetFocusedWindowId(app.id);
         } else {
           setOpenedApps((prev) => [...prev, newApp]);
           handleSetFocusedWindowId(newApp.id);
@@ -133,24 +154,6 @@ const AppsContextProvider = ({ children }: { children: ReactNode }) => {
   function closeAllApps() {
     setOpenedApps([]);
   }
-
-  const setIsMinimalize = useCallback(
-    (id: string, isMinimalize: boolean) => {
-      setOpenedApps((prev) => {
-        return prev.map((app) => {
-          if (app.id === id) {
-            app.isMinimalize = isMinimalize;
-
-            if (id === focusedWindowId) {
-              setFocusedWindowId(null);
-            }
-          }
-          return app;
-        });
-      });
-    },
-    [focusedWindowId],
-  );
 
   function setIsFullscreen(id: string, isFullscreen: boolean) {
     setOpenedApps((prev) => {
