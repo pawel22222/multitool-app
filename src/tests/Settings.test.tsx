@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, getByText, render } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import Settings from '@/apps/Settings';
 
@@ -13,8 +13,8 @@ describe('Settings', () => {
   it('Renders settings', () => {
     const sidebar = component.getByTestId('settings-categories');
     expect(sidebar.childNodes.length).toBe(2);
-    expect(component.getByText('General')).toBeInTheDocument();
-    expect(component.getByText('Personal')).toBeInTheDocument();
+    expect(getByText(sidebar, 'Personal')).toBeInTheDocument();
+    expect(getByText(sidebar, 'General')).toBeInTheDocument();
   });
 
   it('Should update personal settings', () => {
