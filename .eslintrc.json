@@ -13,6 +13,7 @@
   },
   "plugins": ["react", "react-hooks", "react-refresh"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-empty-function": "off",
     "no-useless-constructor": "off",
     "operator-linebreak": "off",
